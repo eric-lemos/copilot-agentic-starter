@@ -82,7 +82,7 @@ O fluxo completo, quando necessário, pode ser:
                        Security
                           │
                           ▼
-                    Test Engineer
+                    Testing Agent
                           │
                           ▼
                       Validation
@@ -358,7 +358,7 @@ A estrutura principal é:
                        Security
                           │
                           ▼
-                    Test Engineer
+                    Testing Agent
                           │
                           ▼
                       Validation
@@ -598,18 +598,18 @@ Findings relevantes não devem ser ocultados apenas para permitir conclusão.
 
 ---
 
-## Test Engineer Agent
+## Testing Agent
 
 Arquivo:
 
-`.github/agents/test-engineer.agent.md`
+`.github/agents/testing.agent.md`
 
-### Papel do Test Engineer Agent
+### Papel do Testing Agent
 
 Responsável pela estratégia e implementação de testes necessários para
 validar comportamento e prevenir regressões.
 
-### Domínios do Test Engineer Agent
+### Domínios do Testing Agent
 
 - unit tests;
 - integration tests;
@@ -631,7 +631,7 @@ validar comportamento e prevenir regressões.
 - autenticação ou autorização forem alteradas;
 - a estratégia de testes exigir análise especializada.
 
-### Limites do Test Engineer Agent
+### Limites do Testing Agent
 
 Não altere comportamento correto da aplicação apenas para fazer testes
 passarem.
@@ -724,7 +724,7 @@ Architect participa quando houver decisão estrutural relevante.
                   Security Review
                          │
                          ▼
-                   Test Engineer
+                   Testing Agent
                          │
                          ▼
                      Validation
@@ -845,7 +845,7 @@ Cada domínio possui um owner principal:
 | Business logic | Backend |
 | Persistência | Backend |
 | Security review | Security |
-| Estratégia especializada de testes | Test Engineer |
+| Estratégia especializada de testes | Testing Agent |
 
 Ownership não impede colaboração.
 
@@ -871,7 +871,7 @@ Architect orienta conflitos predominantemente arquiteturais.
 Security pode bloquear conclusão diante de uma vulnerabilidade material não
 mitigada.
 
-Test Engineer pode bloquear conclusão quando comportamento crítico não puder
+Testing Agent pode bloquear conclusão quando comportamento crítico não puder
 ser validado de forma confiável.
 
 Quando um conflito depender de decisão de produto, retorne a decisão ao
@@ -933,7 +933,7 @@ Orientação inicial:
 | Frontend | Sim | Domínio relevante | Limitado | Não | Pesquisa pública |
 | Backend | Sim | Domínio relevante | Limitado | Não | Pesquisa pública |
 | Security | Sim | Não | Não | Não | Pesquisa pública |
-| Test Engineer | Sim | Testes | Controlado | Não | Pesquisa pública |
+| Testing Agent | Sim | Testes | Controlado | Não | Pesquisa pública |
 
 As listas `agents` no frontmatter limitam quais custom agents podem ser
 delegados: Fullstack declara os especialistas permitidos; os demais declaram
@@ -942,7 +942,7 @@ delegados: Fullstack declara os especialistas permitidos; os demais declaram
 Os escopos “Documentação”, “Domínio relevante” e “Testes” são limites
 comportamentais, não restrições técnicas da Tool `edit`. Da mesma forma,
 `execute` não limita por si só arquivos, comandos ou destinos. A disponibilidade
-de `execute` em Frontend, Backend e Test Engineer destina-se a validações
+de `execute` em Frontend, Backend e Testing Agent destina-se a validações
 locais pertinentes ao domínio; não amplia as permissões definidas em
 `.github/copilot-instructions.md`.
 
@@ -967,10 +967,10 @@ seguros e descartáveis.
 O agente responsável pela implementação deve realizar validações direcionadas
 quando possuir as Tools necessárias.
 
-Test Engineer não substitui a responsabilidade do implementador de validar
+Testing Agent não substitui a responsabilidade do implementador de validar
 seu próprio trabalho.
 
-Para mudanças relevantes, Test Engineer pode realizar validação independente
+Para mudanças relevantes, Testing Agent pode realizar validação independente
 adicional.
 
 Falhas devem retornar ao owner apropriado:

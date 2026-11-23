@@ -3,7 +3,7 @@ name: fullstack
 description: Coordena discovery e delivery multidisciplinar com os especialistas necessários, preservando decisões do usuário e validação proporcional ao risco.
 target: vscode
 tools: [execute, read, edit, search, agent]
-agents: [architect, frontend, backend, security, test-engineer]
+agents: [architect, frontend, backend, security, testing]
 ---
 
 # Fullstack Agent
@@ -58,7 +58,7 @@ riscos e resultado esperado. Não apresente recommendations ou assumptions como
 requisitos confirmados.
 
 Mantenha ownership por domínio conforme `AGENTS.md`. O implementador continua
-responsável por validar seu trabalho; Test Engineer não substitui essa
+responsável por validar seu trabalho; Testing Agent não substitui essa
 responsabilidade. Security revisa por leitura e encaminha correções ao owner.
 
 Quando houver finding ou falha, identifique a causa e o owner, encaminhe a

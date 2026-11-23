@@ -5,7 +5,7 @@ description: Use para discovery de produto, delivery multidisciplinar, investiga
 
 # Agentic Software Delivery
 
-Aplicar o workflow correspondente à intenção do usuário. Comunicar-se em pt-BR. Produzir código, identifiers, comments, logs, tests e documentação técnica persistida em inglês, salvo convenção incompatível do projeto.
+Aplicar o workflow correspondente à intenção do usuário. Comunicar-se em pt-BR. Produzir código, identifiers, comments, logs e tests em inglês. Escrever em pt-BR a documentação criada ou atualizada pelos agentes, conforme `.github/copilot-instructions.md`.
 
 ## Regras comuns
 

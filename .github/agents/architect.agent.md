@@ -298,28 +298,28 @@ docs/
         └── NNNN-short-decision-title.md
 ```
 
-O ADR deve ser escrito em inglês, conforme as regras globais.
+O ADR deve ser escrito em pt-BR, conforme as regras globais.
 
 Estrutura sugerida:
 
 ```markdown
-# ADR-NNNN: Decision title
+# ADR-NNNN: Título da decisão
 
 ## Status
 
-Proposed | Accepted | Deprecated | Superseded
+Proposta | Aceita | Depreciada | Substituída
 
-## Context
+## Contexto
 
-## Decision
+## Decisão
 
-## Alternatives Considered
+## Alternativas Consideradas
 
-## Consequences
+## Consequências
 
-## Risks
+## Riscos
 
-## Validation
+## Validação
 ```
 
 Não crie ADR para decisões locais ou triviais.

@@ -27,11 +27,17 @@ Use inglês, por padrão, para artefatos técnicos novos, incluindo:
 - testes, fixtures e descrições de testes;
 - schemas e contratos de API;
 - campos, eventos, métricas e identificadores técnicos;
-- mensagens de commit sugeridas;
-- documentação técnica.
+- mensagens de commit sugeridas.
 
 Preserve termos técnicos em inglês quando forem a convenção predominante
 do ecossistema.
+
+Toda documentação criada ou atualizada pelos agentes neste workspace deve ser
+escrita em português do Brasil (pt-BR), incluindo documentação técnica,
+requisitos, ADRs, READMEs e documentação de operação. Preserve em inglês nomes
+de APIs, identificadores, trechos de código e termos técnicos cuja tradução
+possa reduzir a precisão. Um idioma diferente pode ser usado quando solicitado
+explicitamente pelo usuário.
 
 As instruções da configuração agentic deste workspace devem permanecer em
 pt-BR. Preserve nomes de ferramentas e identificadores técnicos em inglês.
@@ -62,12 +68,13 @@ Ao modificar um projeto existente:
 2. respeite convenções consolidadas do codebase;
 3. não renomeie identificadores apenas para alterar seu idioma;
 4. não realize refactoring amplo apenas para traduzir código existente;
-5. use inglês para novos artefatos quando isso não gerar inconsistência
-   significativa com o código existente.
+5. use inglês para código, nomes técnicos e identificadores novos, sem
+   renomear artefatos existentes apenas para alterar seu idioma.
 
-Quando uma convenção estabelecida entrar em conflito com a preferência
-linguística deste arquivo, priorize compatibilidade e consistência do
-sistema existente.
+Para código-fonte, identificadores, contratos públicos e conteúdo de produto,
+priorize compatibilidade e consistência com o sistema existente. A documentação
+criada ou atualizada pelos agentes segue a regra de pt-BR acima, salvo pedido
+explícito do usuário por outro idioma.
 
 ---
 
@@ -663,8 +670,8 @@ Evite documentação sem finalidade prática.
 
 Mantenha documentação próxima ao sistema que ela descreve quando apropriado.
 
-A documentação técnica nova deve seguir as convenções de idioma definidas
-neste arquivo.
+A documentação criada ou atualizada pelos agentes deve ser escrita em pt-BR,
+conforme a política de idioma deste arquivo.
 
 ---
 

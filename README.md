@@ -30,12 +30,17 @@ A configuração agentic fica em `.github/`:
 | `frontend` | Interface, comportamento client-side, acessibilidade e testes de frontend. | Controles visuais não substituem autorização server-side confiável. |
 | `backend` | APIs, regras de negócio, persistência, autenticação, autorização, integrações e testes de backend. | Segue a stack e os contratos existentes. |
 | `security` | Revisão independente de segurança e análise de ameaças, somente por leitura. | Não edita arquivos nem executa comandos; encaminha correções ao owner do domínio. |
-| `test-engineer` | Estratégia de testes baseada em risco, implementação de testes e validação independente. | Não altera comportamento correto do produto apenas para satisfazer um teste. |
+| `testing` | Estratégia de testes baseada em risco, implementação de testes e validação independente. | Não altera comportamento correto do produto apenas para satisfazer um teste. |
 
 O ownership dos agentes é uma convenção de coordenação, não um motivo para
 bloquear colaboração útil. Os metadados `agents` e `tools` nos perfis declaram
 capacidades pretendidas; não substituem políticas do workspace nem concedem
 permissão para operações que seriam proibidas.
+
+Documentações criadas ou atualizadas pelos agentes neste workspace devem ser
+escritas em pt-BR, incluindo documentação técnica e ADRs. Código, identificadores
+e termos técnicos permanecem em inglês quando essa for a convenção do
+ecossistema.
 
 ### Instruções por domínio
 

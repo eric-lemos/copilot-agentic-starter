@@ -16,9 +16,11 @@ Transformar uma ideia em requisitos implementáveis sem iniciar código prematur
 
 ## Baseline
 
-Incluir, conforme aplicável: objective, scope, actors, functional requirements, business rules, non-functional requirements, data, integrations, security, acceptance criteria, constraints, out of scope e open decisions.
+Incluir, conforme aplicável: objetivo, escopo, atores, requisitos funcionais e
+não funcionais, regras de negócio, dados, integrações, segurança, critérios
+de aceite, restrições, itens fora do escopo e decisões em aberto.
 
-Não tratar silêncio como aprovação. Não escolher stack durante discovery, salvo constraint explícita. Se persistida, escrever a documentação técnica em inglês em `docs/requirements/`.
+Não tratar silêncio como aprovação. Não escolher stack durante discovery, salvo constraint explícita. Se persistida em `docs/requirements/`, escrever a documentação em pt-BR, conforme `.github/copilot-instructions.md`.
 
 ## Resposta
 

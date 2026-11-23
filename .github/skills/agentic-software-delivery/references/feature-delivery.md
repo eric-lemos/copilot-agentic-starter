@@ -7,7 +7,7 @@ Confirmar que objetivo, comportamento e critérios de aceite estão claros. Reto
 ## Workflow
 
 1. Inspecionar stack, arquitetura, módulos, contracts, testes e validações existentes.
-2. Definir domínios afetados e coordenar Architect, Frontend, Backend, Security e Test Engineer somente quando necessários.
+2. Definir domínios afetados e coordenar Architect, Frontend, Backend, Security e Testing Agent somente quando necessários.
 3. Alinhar contracts antes de implementações frontend/backend incompatíveis.
 4. Implementar mudanças focadas, seguras e compatíveis.
 5. Adicionar testes proporcionais ao risco.
