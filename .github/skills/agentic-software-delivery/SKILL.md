@@ -12,7 +12,7 @@ Aplicar o workflow correspondente à intenção do usuário. Comunicar-se em pt-
 1. Ler `.github/copilot-instructions.md` e `AGENTS.md` quando existirem.
 2. Consultar os Agents e Instructions relevantes quando necessário, respeitando solicitações explícitas para não utilizá-los.
 3. Inspecionar o workspace antes de presumir stack, arquitetura, contracts ou comandos.
-4. Trabalhar apenas com arquivos e Tools locais. Não usar conectores externos, produção ou credenciais reais.
+4. Manter alterações e execução locais. Permitir pesquisa pública anônima e somente para leitura conforme `.github/copilot-instructions.md`; não usar conectores externos, produção ou credenciais reais.
 5. Tratar recomendações, assumptions e requisitos confirmados como categorias distintas.
 6. Não afirmar execução, validação ou sucesso sem evidência real.
 7. Manter mudanças focadas; evitar overengineering e refactoring não relacionado.

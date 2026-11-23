@@ -928,12 +928,12 @@ Orientação inicial:
 
 | Agent | Read/Search | Edit | Terminal | Agent delegation | External Services |
 | --- | --- | --- | --- | --- | --- |
-| Fullstack | Sim | Limitado | Limitado | Especialistas permitidos no frontmatter | Não |
-| Architect | Sim | Documentação | Não | Não | Não |
-| Frontend | Sim | Domínio relevante | Limitado | Não | Não |
-| Backend | Sim | Domínio relevante | Limitado | Não | Não |
-| Security | Sim | Não | Não | Não | Não |
-| Test Engineer | Sim | Testes | Controlado | Não | Não |
+| Fullstack | Sim | Limitado | Limitado | Especialistas permitidos no frontmatter | Pesquisa pública |
+| Architect | Sim | Documentação | Não | Não | Pesquisa pública |
+| Frontend | Sim | Domínio relevante | Limitado | Não | Pesquisa pública |
+| Backend | Sim | Domínio relevante | Limitado | Não | Pesquisa pública |
+| Security | Sim | Não | Não | Não | Pesquisa pública |
+| Test Engineer | Sim | Testes | Controlado | Não | Pesquisa pública |
 
 As listas `agents` no frontmatter limitam quais custom agents podem ser
 delegados: Fullstack declara os especialistas permitidos; os demais declaram
@@ -943,8 +943,8 @@ Os escopos “Documentação”, “Domínio relevante” e “Testes” são li
 comportamentais, não restrições técnicas da Tool `edit`. Da mesma forma,
 `execute` não limita por si só arquivos, comandos ou destinos. A disponibilidade
 de `execute` em Frontend, Backend e Test Engineer destina-se a validações
-locais pertinentes ao domínio; não autoriza operações fora dos limites locais
-de `.github/copilot-instructions.md`.
+locais pertinentes ao domínio; não amplia as permissões definidas em
+`.github/copilot-instructions.md`.
 
 Security não recebe `edit` nem `execute`. Quando uma avaliação depender de
 scanner ou outra ferramenta executável, Security solicita a execução local ao
@@ -954,7 +954,8 @@ Não utilize:
 
 - produção;
 - credenciais reais;
-- serviços ou recursos externos.
+- serviços ou recursos externos, exceto pesquisa pública anônima e somente
+  para leitura conforme `.github/copilot-instructions.md`.
 
 Não execute operações destrutivas fora de ambientes locais explicitamente
 seguros e descartáveis.
