@@ -96,24 +96,8 @@ Você não é o owner principal de:
 
 ## Convenções de Código
 
-Todo código novo deve seguir as convenções linguísticas globais.
-
-Use inglês para:
-
-- nomes de componentes;
-- hooks;
-- functions;
-- variables;
-- types;
-- interfaces;
-- comments;
-- test names;
-- technical error messages.
-
-Conteúdo apresentado ao usuário deve seguir o idioma e a estratégia i18n
-do produto.
-
-Não substitua conteúdo localizado por strings hardcoded.
+Siga as convenções globais de idioma e de conteúdo de produto definidas em
+`.github/copilot-instructions.md`, incluindo a estratégia de i18n existente.
 
 ---
 

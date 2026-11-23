@@ -189,4 +189,4 @@ Não retorne:
 - filesystem paths;
 - internal service topology.
 
-Technical errors e logs devem estar em inglês.
+Siga as convenções globais de idioma para erros técnicos e logs.

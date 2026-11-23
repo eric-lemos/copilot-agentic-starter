@@ -73,11 +73,11 @@ O fluxo completo, quando necessário, pode ser:
                           ▼
                       Architecture
                           │
-                  ┌───────┴───────┐
-                  ▼               ▼
-              Frontend         Backend
-                  │               │
-                  └───────┬───────┘
+             ┌────────────┼────────────┐
+             ▼            ▼            ▼
+         Frontend      Backend       DevOps
+             │            │            │
+             └────────────┼────────────┘
                           ▼
                        Security
                           │
@@ -349,11 +349,11 @@ A estrutura principal é:
                       Fullstack
                      Orchestrator
                           │
-              ┌───────────┼───────────┐
-              ▼           ▼           ▼
-          Architect    Frontend    Backend
-              │           │           │
-              └───────────┼───────────┘
+              ┌───────────┼───────────┬───────────┐
+              ▼           ▼           ▼           ▼
+          Architect    Frontend    Backend      DevOps
+              │           │           │           │
+              └───────────┼───────────┴───────────┘
                           ▼
                        Security
                           │
@@ -542,6 +542,38 @@ integrações backend.
 Não modifique UI quando essa responsabilidade pertencer ao Frontend Agent.
 
 Mudanças estruturais relevantes devem envolver Architect quando necessário.
+
+---
+
+## DevOps / Platform Agent
+
+Arquivo:
+
+`.github/agents/devops.agent.md`
+
+### Papel do DevOps / Platform Agent
+
+Responsável por infraestrutura e operações no repositório, incluindo CI/CD,
+containers, IaC, deployment, configuração operacional e observabilidade.
+
+### Acione quando houver
+
+- alteração de pipeline ou automação de build e validação;
+- configuração de containers ou runtime;
+- Infrastructure as Code;
+- configuração de deployment ou rollback;
+- health checks ou observabilidade;
+- confiabilidade e segurança operacional.
+
+### Limites
+
+DevOps implementa e valida mudanças locais no domínio. Não acessa produção,
+cloud, SSH, credenciais reais ou recursos compartilhados e não executa
+deployments nem operações de alteração de estado remoto.
+
+Architect mantém ownership de decisões estruturais; Backend mantém ownership
+de regras de aplicação. Security pode revisar mudanças sensíveis de forma
+independente.
 
 ---
 
@@ -844,6 +876,7 @@ Cada domínio possui um owner principal:
 | API | Backend |
 | Business logic | Backend |
 | Persistência | Backend |
+| Infraestrutura, CI/CD e operações | DevOps |
 | Security review | Security |
 | Estratégia especializada de testes | Testing Agent |
 
@@ -867,6 +900,8 @@ simplicidade.
 Fullstack consolida conflitos multidisciplinares.
 
 Architect orienta conflitos predominantemente arquiteturais.
+
+DevOps orienta conflitos predominantemente operacionais.
 
 Security pode bloquear conclusão diante de uma vulnerabilidade material não
 mitigada.
@@ -932,6 +967,7 @@ Orientação inicial:
 | Architect | Sim | Documentação | Não | Não | Pesquisa pública |
 | Frontend | Sim | Domínio relevante | Limitado | Não | Pesquisa pública |
 | Backend | Sim | Domínio relevante | Limitado | Não | Pesquisa pública |
+| DevOps | Sim | Domínio relevante | Controlado | Não | Pesquisa pública |
 | Security | Sim | Não | Não | Não | Pesquisa pública |
 | Testing Agent | Sim | Testes | Controlado | Não | Pesquisa pública |
 
@@ -942,7 +978,7 @@ delegados: Fullstack declara os especialistas permitidos; os demais declaram
 Os escopos “Documentação”, “Domínio relevante” e “Testes” são limites
 comportamentais, não restrições técnicas da Tool `edit`. Da mesma forma,
 `execute` não limita por si só arquivos, comandos ou destinos. A disponibilidade
-de `execute` em Frontend, Backend e Testing Agent destina-se a validações
+de `execute` em Frontend, Backend, DevOps e Testing Agent destina-se a validações
 locais pertinentes ao domínio; não amplia as permissões definidas em
 `.github/copilot-instructions.md`.
 
@@ -1044,7 +1080,6 @@ suficientemente distinta para justificar especialização.
 
 Possíveis especializações futuras:
 
-- DevOps / Platform;
 - Database;
 - Observability;
 - Performance;

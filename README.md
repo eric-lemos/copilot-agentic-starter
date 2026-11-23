@@ -29,6 +29,7 @@ A configuração agentic fica em `.github/`:
 | `architect` | Design de sistemas, boundaries, contratos e decisões estruturais. | Principalmente orienta e documenta; agentes de domínio implementam suas áreas. |
 | `frontend` | Interface, comportamento client-side, acessibilidade e testes de frontend. | Controles visuais não substituem autorização server-side confiável. |
 | `backend` | APIs, regras de negócio, persistência, autenticação, autorização, integrações e testes de backend. | Segue a stack e os contratos existentes. |
+| `devops` | Infraestrutura, CI/CD, containers, IaC, deployment e observabilidade. | Não acessa produção, usa credenciais reais nem altera estado remoto ou compartilhado. |
 | `security` | Revisão independente de segurança e análise de ameaças, somente por leitura. | Não edita arquivos nem executa comandos; encaminha correções ao owner do domínio. |
 | `testing` | Estratégia de testes baseada em risco, implementação de testes e validação independente. | Não altera comportamento correto do produto apenas para satisfazer um teste. |
 
@@ -49,6 +50,13 @@ de código, frontend, acessibilidade, segurança, testes e DevOps. As instruçõ
 de frontend, acessibilidade, testes e DevOps declaram padrões `applyTo`; as
 demais são selecionadas conforme o trabalho. Esses documentos complementam,
 mas não substituem, as regras globais e o modelo de orquestração.
+
+Para evitar divergência, use `.github/copilot-instructions.md` como fonte das
+regras transversais; `.github/AGENTS.md` para orquestração, ownership e
+handoffs; `instructions/` para regras duráveis de domínio; perfis em `agents/`
+para papel, capacidades declaradas e limites próprios; e `skills/` para etapas
+de workflows reutilizáveis. Preserve instruções de segurança específicas
+quando protegerem um boundary distinto, mesmo que reforcem uma regra global.
 
 ## Validar a configuração agentica
 
@@ -103,6 +111,69 @@ sessões Claude ou Codex e não cobre todas as ferramentas do agente. A
 disponibilidade depende do sistema operacional e do ambiente onde os comandos
 rodam; consulte os pré-requisitos e limitações atualizados na
 [documentação oficial de sandbox de agentes do VS Code](https://code.visualstudio.com/docs/agents/run/agent-sandboxing).
+
+### Capacidades declaradas pelos perfis
+
+Os campos `tools` e `agents` dos perfis declaram capacidades e delegações
+pretendidas para o agente no VS Code. Eles não são uma política de sandbox e
+não provam que uma ferramenta está disponível ou autorizada na sessão atual.
+Os controles efetivos dependem do harness, do host de execução, das políticas
+da organização e das permissões da sessão.
+
+| Agente | `tools` declaradas | `agents` declarados |
+| --- | --- | --- |
+| `architect` | `read`, `search`, `edit` | nenhum |
+| `backend` | `read`, `search`, `edit`, `execute` | nenhum |
+| `devops` | `read`, `search`, `edit`, `execute` | nenhum |
+| `frontend` | `read`, `search`, `edit`, `execute` | nenhum |
+| `fullstack` | `execute`, `read`, `edit`, `search`, `agent` | `architect`, `frontend`, `backend`, `devops`, `security`, `testing` |
+| `security` | `read`, `search` | nenhum |
+| `testing` | `read`, `search`, `edit`, `execute` | nenhum |
+
+A delegação em `agents` limita os especialistas listados no perfil; não
+concede permissões de sistema operacional nem garante que cada especialista
+esteja habilitado no runtime. Verifique os controles próprios da sessão
+delegada quando precisar confirmar seu acesso efetivo.
+
+### Como verificar os controles efetivos
+
+Na sessão do Copilot que executará os comandos:
+
+1. Confirme o harness e a máquina onde os comandos serão executados. Em sessões
+   remotas, WSL ou containers, caminhos e políticas referem-se ao host de
+   execução, não necessariamente ao desktop local.
+2. No seletor de permissões, confira o nível de aprovação. **Manual**,
+   **Assisted** e **Allow all** controlam quando ações pedem aprovação; não
+   ampliam o acesso imposto pelo sandbox nem substituem políticas da
+   organização.
+3. Execute `/sandbox policy` e confira se o sandbox está ativo, quais caminhos
+   são legíveis ou graváveis e qual política de rede está efetiva. Repita após
+   alterar permissões; para conferir defaults, use uma nova sessão.
+4. Verifique os controles das sessões delegadas. Para outros harnesses, consulte
+   seus controles próprios de sandbox e permissões. Não infira que o estado de
+   uma sessão se aplica às demais.
+
+O sandbox do Copilot restringe comandos de terminal e seus processos filhos;
+alguns MCP servers e language servers gerenciados pela sessão também podem ser
+isolados. Outras ferramentas têm controles próprios, portanto uma política de
+terminal não comprova o limite de ferramentas que não iniciam processos do
+sistema operacional. Aprovar uma ação não expande os caminhos ou destinos de
+rede permitidos pelo sandbox.
+
+No Copilot, o workspace é gravável por padrão e outros caminhos podem ser
+acessíveis conforme os defaults do runtime e as permissões configuradas.
+Conexões de saída à rede são permitidas por padrão; acesso à rede local é
+controlado separadamente. Consulte a política efetiva em vez de inferir
+isolamento a partir de uma configuração declarada.
+
+Como recomendações de least privilege, habilite o sandbox em ambientes
+suportados, mantenha cada perfil com apenas as ferramentas necessárias,
+prefira aprovações e permissões de caminho com escopo mínimo, restrinja
+destinos de rede quando a tarefa não exigir acesso amplo e só permita acesso à
+rede local quando necessário. Não use **Allow all** como controle de
+isolamento.
+
+Consulte também a [documentação de aprovações e permissões do VS Code](https://code.visualstudio.com/docs/agents/run/approvals).
 
 ## Modelo operacional
 

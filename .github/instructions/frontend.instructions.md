@@ -26,6 +26,28 @@ isolamento.
 
 ---
 
+## Design Systems
+
+Antes de criar ou alterar componentes visuais, localize as fontes existentes
+no projeto: documentação, componentes compartilhados, temas, tokens, exemplos
+e configuração de bibliotecas. Não presuma framework, biblioteca ou que exista
+um Design System formal.
+
+Prefira componentes, tokens e padrões já adotados. Estenda o mecanismo
+existente quando necessário em vez de criar duplicatas ou overrides locais
+que divergem do sistema compartilhado.
+
+Se não houver um sistema ou se ele não cobrir a necessidade, siga os padrões
+locais e mantenha a solução limitada à feature. Não introduza uma camada global
+de tokens, uma nova linguagem visual ou uma dependência sem necessidade
+concreta; alinhe previamente mudanças que alterem materialmente a identidade
+visual ou a arquitetura.
+
+Preserve acessibilidade e comportamento responsivo ao usar ou estender
+componentes. Siga também as instruções de acessibilidade aplicáveis.
+
+---
+
 ## State Management
 
 Diferencie:
@@ -158,7 +180,8 @@ Evite dimensões fixas que prejudiquem adaptação sem necessidade.
 
 ## Código
 
-Use inglês para código, identifiers, comments e technical outputs.
+Siga as convenções globais de idioma para código, identificadores, comentários
+e conteúdo de produto em `.github/copilot-instructions.md`.
 
 Siga o formatter, linter e type system existentes.
 

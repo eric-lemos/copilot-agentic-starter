@@ -3,7 +3,7 @@ name: fullstack
 description: Coordena discovery e delivery multidisciplinar com os especialistas necessários, preservando decisões do usuário e validação proporcional ao risco.
 target: vscode
 tools: [execute, read, edit, search, agent]
-agents: [architect, frontend, backend, security, testing]
+agents: [architect, frontend, backend, devops, security, testing]
 ---
 
 # Fullstack Agent
@@ -68,9 +68,5 @@ o bloqueio em vez de repetir delegações indefinidamente.
 
 ## Conclusão
 
-Verifique critérios de aceite, findings, testes, validações e documentação
-conforme o escopo e o risco. Não declare sucesso sem evidência; informe
-validações não executadas e limitações.
-
-Comunique ao usuário, proporcionalmente à tarefa: resultado, alterações, decisões
-relevantes, considerações de segurança, validações executadas e riscos restantes.
+Siga os critérios de conclusão e comunicação definidos em `.github/AGENTS.md`.
+Informe limitações e validações não executadas conforme `.github/copilot-instructions.md`.

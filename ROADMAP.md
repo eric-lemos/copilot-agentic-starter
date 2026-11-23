@@ -38,11 +38,16 @@ de agentes, instruções e skills.
 **Objetivo:** distinguir as regras comportamentais das permissões efetivamente
 aplicadas pelo ambiente.
 
-- [ ] Mapear permissões de leitura, edição, terminal, rede e delegação por
-  agente e por ambiente.
-- [ ] Documentar como verificar os controles ativos e suas limitações.
-- [ ] Revisar recomendações de sandbox e permissões mínimas antes de ampliar a
+- [x] Mapear ferramentas e delegações declaradas por agente, separando-as dos
+  controles efetivos do Copilot no VS Code e de outros ambientes.
+- [x] Documentar como verificar os controles ativos e suas limitações.
+- [x] Revisar recomendações de sandbox e permissões mínimas antes de ampliar a
   autonomia dos agentes.
+
+O mapeamento e o procedimento de verificação estão em
+[Controles de runtime no README](README.md#capacidades-declaradas-pelos-perfis).
+O estado efetivo continua específico da sessão, do harness, do host e das
+políticas gerenciadas; confirme-o com `/sandbox policy` onde houver suporte.
 
 **Critérios de conclusão:**
 
@@ -58,16 +63,20 @@ aplicadas pelo ambiente.
 **Objetivo:** diminuir divergência e custo de manutenção sem remover controles
 importantes.
 
-- [ ] Identificar regras repetidas entre instruções globais, `AGENTS.md`,
+- [x] Identificar regras repetidas entre instruções globais, `AGENTS.md`,
   perfis de agentes e skills.
-- [ ] Definir uma fonte canônica para cada regra compartilhada e substituir
-  duplicações por referências quando apropriado.
-- [ ] Reexecutar as verificações estruturais após
-  as consolidações.
+- [x] Definir uma fonte canônica para cada regra compartilhada e substituir
+  duplicações por referências quando apropriado. A política de idioma é global;
+  o Fullstack referencia os critérios de conclusão em `AGENTS.md`.
+- [x] Reexecutar as verificações estruturais após as consolidações.
+
+Reforços de segurança, validação e testes permanecem nos perfis e instruções de
+domínio quando acrescentam contexto específico ou protegem boundaries próprios.
 
 **Critérios de conclusão:**
 
-- Regras compartilhadas têm uma fonte principal identificável.
+- Regras compartilhadas têm uma fonte principal identificável, conforme
+  descrito no [README](README.md#instruções-por-domínio).
 - Handoffs, validação, segurança e ownership continuam cobertos.
 
 ### 4. Estabelecer um ciclo de melhoria contínua
@@ -75,11 +84,18 @@ importantes.
 **Objetivo:** priorizar mudanças a partir de problemas observados, evitando
 métricas ou coleta de dados sem propósito.
 
-- [ ] Definir quais sinais de fricção valem acompanhar, como retrabalho,
+- [x] Definir quais sinais de fricção valem acompanhar, como retrabalho,
   falhas na primeira validação ou delegações sem valor.
-- [ ] Definir como registrar resultados sem expor código privado, credenciais
+- [x] Definir como registrar resultados sem expor código privado, credenciais
   ou dados pessoais.
-- [ ] Revisar periodicamente os cenários e prioridades com base nos resultados.
+- [x] Revisar prioridades em mudanças relevantes da configuração e nas
+  revisões do roadmap, usando somente sinais agregados.
+
+O acompanhamento será manual e sem telemetria: registrar apenas categorias e
+ocorrências agregadas de retrabalho, falhas de validação atribuíveis às
+instruções e delegações que não agregaram valor. Não registrar prompts,
+transcrições, código privado, credenciais ou dados pessoais. Atualizar o
+roadmap quando houver evidência recorrente ou impacto relevante.
 
 **Critérios de conclusão:**
 
@@ -88,27 +104,34 @@ métricas ou coleta de dados sem propósito.
 - O roadmap é revisado quando evidências novas justificarem mudança de
   prioridade.
 
-### 5. Avaliar a criação de um agente DevOps/Platform
+### 5. Criar um agente DevOps/Platform dedicado
 
-**Objetivo:** decidir se as instruções de DevOps existentes precisam de um
-agente especializado com ownership próprio.
+**Objetivo:** adicionar um agente especializado com ownership próprio para
+infraestrutura e operações, complementando as instruções de DevOps existentes.
 
-- [ ] Revisar os tipos de tarefas cobertos por
+- [x] Revisar os tipos de tarefas cobertos por
   `.github/instructions/devops.instructions.md` e identificar necessidades
   recorrentes que não estejam bem atendidas pelos agentes atuais.
-- [ ] Definir o escopo potencial do agente, seus limites de ownership e as
-  ferramentas e permissões mínimas necessárias.
-- [ ] Comparar os benefícios de um agente dedicado com a manutenção das
+- [x] Definir ownership e ferramentas mínimas do perfil dedicado.
+- [x] Comparar os benefícios de um agente dedicado com a manutenção das
   instruções e a colaboração dos agentes existentes.
-- [ ] Registrar a decisão e, se aprovada, atualizar os perfis de delegação e
-  as referências operacionais relacionadas.
+- [x] Criar o perfil DevOps / Platform e atualizar delegação e documentação.
+
+**Decisão confirmada:** criar um agente DevOps / Platform dedicado, com
+ownership de infraestrutura, CI/CD, containers, IaC, deployment e
+observabilidade. O perfil declara leitura, pesquisa, edição e execução local,
+sem delegação própria e sem acesso a produção ou estado remoto. Ele pode ser
+reavaliado se o ownership precisar mudar com base em tarefas recorrentes.
+
+O perfil está em
+[devops.agent.md](.github/agents/devops.agent.md).
 
 **Critérios de conclusão:**
 
-- A decisão de criar ou não o agente é justificada por tarefas e necessidades
-  identificáveis.
-- Caso recomendado, o perfil define responsabilidades, limites, ferramentas
-  e regras de delegação sem sobreposição desnecessária.
+- A decisão de criar o agente é justificada por necessidade de ownership
+  dedicado para tarefas DevOps / Platform.
+- O perfil define responsabilidades, limites, ferramentas e regras de
+  delegação sem sobreposição desnecessária.
 - A proposta respeita os controles de segurança e não depende de acesso a
   produção ou credenciais reais.
 
@@ -118,14 +141,17 @@ agente especializado com ownership próprio.
 Design System existente ou, quando não houver um, evitar introduzir padrões
 visuais e dependências sem necessidade.
 
-- [ ] Definir como identificar os componentes, tokens, padrões e documentação
+- [x] Definir como identificar os componentes, tokens, padrões e documentação
   do Design System do projeto.
-- [ ] Orientar o uso e a extensão de componentes e tokens existentes, evitando
+- [x] Orientar o uso e a extensão de componentes e tokens existentes, evitando
   duplicação ou overrides desnecessários.
-- [ ] Definir como proceder quando o projeto não possui Design System ou quando
+- [x] Definir como proceder quando o projeto não possui Design System ou quando
   o sistema existente não cobre a necessidade.
-- [ ] Alinhar as orientações com acessibilidade, responsividade e direção
+- [x] Alinhar as orientações com acessibilidade, responsividade e direção
   visual já definidas para o agente Frontend.
+
+As orientações estão em
+[frontend.instructions.md](.github/instructions/frontend.instructions.md).
 
 **Critérios de conclusão:**
 
@@ -148,6 +174,8 @@ alterações no repositório.
 
 A pipeline está em
 [validate-agentic-config.yml](.github/workflows/validate-agentic-config.yml).
+Execução confirmatória observada na PR #1: o validador passou e os quatro
+testes passaram; duração total exibida de 5 segundos.
 
 **Critérios de conclusão:**
 
@@ -161,7 +189,6 @@ A pipeline está em
 
 - Ferramentas e formato para validar Markdown, YAML e referências.
 - Controles de sandbox e permissões compatíveis com o runtime utilizado.
-- Necessidade de um agente DevOps/Platform dedicado.
 - Sinais de qualidade que serão acompanhados e por quanto tempo.
 
 ## Notas de execução

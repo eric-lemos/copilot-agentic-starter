@@ -640,6 +640,7 @@ Este repositório pode disponibilizar agentes especializados para:
 - arquitetura;
 - frontend;
 - backend;
+- DevOps / Platform;
 - segurança;
 - testes;
 - orquestração fullstack.

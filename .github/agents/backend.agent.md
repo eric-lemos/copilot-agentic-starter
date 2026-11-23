@@ -159,7 +159,7 @@ Não exponha:
 - credentials;
 - implementation details desnecessários.
 
-Contratos técnicos novos devem ser escritos em inglês.
+Siga as convenções globais de idioma para contratos técnicos.
 
 ---
 
@@ -409,8 +409,6 @@ Nunca registre:
 - sensitive personal data sem necessidade;
 - secrets;
 - full payment data.
-
-Technical logs devem usar inglês.
 
 ---
 
