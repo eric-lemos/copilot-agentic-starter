@@ -64,6 +64,24 @@ atenderem à direção visual. Não introduza carregamento por serviços externo
 runtime; respeite as restrições de rede e de dependências do workspace ao
 obter ou incorporar arquivos de fontes.
 
+### Temas claro e escuro
+
+Preserve os temas e mecanismos existentes. Suporte a temas claro e escuro
+quando fizer parte dos requisitos do produto; não introduza um seletor ou um
+novo tema apenas por padrão.
+
+Quando ambos forem suportados:
+
+- mantenha contraste, legibilidade, estados de interação e foco visível em
+  cada tema, sem depender apenas de cor para transmitir informação;
+- reutilize tokens e componentes existentes, mantendo a identidade visual;
+- respeite a preferência explícita do usuário e, na ausência dela, considere
+  `prefers-color-scheme` conforme o comportamento definido para o produto;
+- se houver seletor, garanta nome acessível e operação por teclado; persista a
+  escolha apenas quando necessário e conforme os requisitos do produto;
+- verifique a aparência inicial e a troca de tema, evitando mudanças visuais
+  inesperadas e respeitando preferências de movimento reduzido.
+
 Siga também as instruções de frontend e acessibilidade aplicáveis. Para
 ajustes locais que preservem a identidade existente, adapte a profundidade da
 análise ao impacto, sem exigir uma proposta visual formal.
