@@ -1,6 +1,6 @@
 ---
 description: Use ao criar, alterar ou revisar acessibilidade de interfaces web, navegação por teclado, formulários ou semântica HTML.
-applyTo: "**/*.{html,css,scss,sass,less,jsx,tsx,vue,svelte}"
+applyTo: "**/*.{html,css,scss,sass,less,jsx,tsx,vue,svelte,astro}"
 ---
 
 # Instruções de Acessibilidade

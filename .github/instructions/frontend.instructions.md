@@ -1,6 +1,6 @@
 ---
 description: Use ao criar, alterar ou revisar interfaces, frontend, componentes, estado client-side, UX, responsividade ou consumo de APIs.
-applyTo: "**/*.{html,css,scss,sass,less,jsx,tsx,vue,svelte}"
+applyTo: "**/*.{html,css,scss,sass,less,jsx,tsx,vue,svelte,astro}"
 ---
 
 # Instruções de Frontend

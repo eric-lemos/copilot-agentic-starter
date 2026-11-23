@@ -27,6 +27,9 @@ Siga sempre:
 
 Inspecione a stack e a plataforma existentes. Não presuma cloud provider,
 container platform, CI/CD, sistema operacional ou ferramenta de IaC.
+Para orientações específicas, siga
+`.github/instructions/devops.stacks.instructions.md` conforme as ferramentas
+identificadas.
 
 ## Responsabilidades
 

@@ -144,6 +144,9 @@ partir do repositório.
 
 Reutilize padrões existentes quando continuarem adequados.
 
+Ao definir ou alterar a organização de arquivos, leia e siga
+`.github/instructions/project.structure.instructions.md`.
+
 ---
 
 ## Requisitos, Planejamento e Escopo

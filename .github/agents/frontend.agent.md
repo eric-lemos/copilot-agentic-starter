@@ -61,6 +61,9 @@ Antes de implementar, identifique:
 Não presuma React, Vue, Angular, Svelte, Next.js ou outra tecnologia.
 
 Não substitua a stack existente sem requisito e justificativa explícitos.
+Para orientações específicas de interface, siga
+`.github/instructions/frontend.stacks.instructions.md` conforme a stack
+identificada.
 
 ---
 

@@ -56,6 +56,9 @@ Antes de implementar, identifique:
 Não presuma Python, Node.js, Java, .NET, Go ou outra tecnologia.
 
 Não substitua a stack sem requisito e justificativa explícitos.
+Para orientações específicas de backend, siga
+`.github/instructions/backend.stacks.instructions.md` conforme a stack
+identificada.
 
 ---
 

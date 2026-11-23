@@ -1,6 +1,6 @@
 ---
 description: Use ao definir ou alterar a direção visual de interfaces e produtos digitais.
-applyTo: "**/*.{html,css,scss,sass,less,jsx,tsx,vue,svelte}"
+applyTo: "**/*.{html,css,scss,sass,less,jsx,tsx,vue,svelte,astro}"
 ---
 
 # Instruções de Direção Visual
@@ -49,6 +49,20 @@ aceitáveis quando fizerem sentido para o produto e a tarefa.
 Use componentes e padrões existentes quando apropriado. Não introduza uma
 dependência, uma biblioteca visual ou uma camada global de tokens apenas para
 produzir diferenciação estética.
+
+### Tipografia
+
+Reutilize as fontes e os padrões tipográficos existentes quando adequados.
+Quando for necessário pesquisar alternativas, catálogos como
+[Google Fonts](https://fonts.google.com/) e [Fontsource](https://fontsource.org/)
+podem servir como referência pública; não presuma que toda fonte tenha a mesma
+licença. Verifique as condições de uso e distribuição da fonte escolhida,
+além de legibilidade e cobertura dos idiomas do produto.
+
+Prefira fontes já disponíveis no projeto ou alternativas do sistema quando
+atenderem à direção visual. Não introduza carregamento por serviços externos em
+runtime; respeite as restrições de rede e de dependências do workspace ao
+obter ou incorporar arquivos de fontes.
 
 Siga também as instruções de frontend e acessibilidade aplicáveis. Para
 ajustes locais que preservem a identidade existente, adapte a profundidade da

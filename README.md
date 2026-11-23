@@ -47,10 +47,39 @@ ecossistema.
 
 Os arquivos em `.github/instructions/` cobrem arquitetura, backend, qualidade
 de código, frontend, direção visual, acessibilidade, segurança, testes e DevOps.
-As instruções de frontend, direção visual, acessibilidade, testes e DevOps
-declaram padrões `applyTo`; as demais são selecionadas conforme o trabalho.
-Esses documentos complementam, mas não substituem, as regras globais e o
-modelo de orquestração.
+As instruções de estrutura de projeto, stacks de backend, frontend, tecnologias
+de interface, direção visual, acessibilidade, testes e DevOps declaram padrões
+`applyTo`. As demais podem ser consultadas conforme a tarefa. A descoberta e a
+inclusão dependem do runtime; esses documentos complementam, mas não substituem,
+as regras globais e o modelo de orquestração.
+
+As orientações em
+[frontend.stacks.instructions.md](.github/instructions/frontend.stacks.instructions.md)
+cobrem HTML, CSS, JavaScript, TypeScript, React, Vue, Angular, Svelte, Next.js,
+Nuxt, SvelteKit, Astro, Tailwind CSS, Bootstrap, Sass, CSS Modules, Vite, Vitest
+e Playwright. Suas seções específicas dependem da stack identificada, não apenas
+da extensão do arquivo, e não impõem bibliotecas ou estilos visuais. Elas também
+orientam diagnóstico de performance e validação de qualidade de interface.
+
+As orientações em
+[backend.stacks.instructions.md](.github/instructions/backend.stacks.instructions.md)
+cobrem Python, Go, Node.js, Java, C#, PHP e Ruby, com orientações para seus
+frameworks e para PostgreSQL, MySQL, MongoDB e Redis. Elas se aplicam conforme
+a stack identificada, orientam diagnóstico de performance e qualidade e não
+impõem frameworks, bibliotecas ou bancos de dados.
+
+As orientações em
+[devops.stacks.instructions.md](.github/instructions/devops.stacks.instructions.md)
+cobrem GitHub Actions, GitLab CI, Jenkins, Docker, Podman, Kubernetes, Helm,
+Terraform, OpenTofu, Ansible, Prometheus, Grafana, OpenTelemetry e Argo CD.
+Elas se aplicam às ferramentas identificadas, sem ampliar os limites de execução
+local nem exigir serviços externos, e orientam diagnóstico de performance e
+qualidade operacional.
+
+As orientações em
+[project.structure.instructions.md](.github/instructions/project.structure.instructions.md)
+definem uma estrutura-base adaptável para projetos novos e preservam as
+convenções de projetos existentes.
 
 Para evitar divergência, use `.github/copilot-instructions.md` como fonte das
 regras transversais; `.github/AGENTS.md` para orquestração, ownership e
