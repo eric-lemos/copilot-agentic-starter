@@ -46,10 +46,11 @@ ecossistema.
 ### Instruções por domínio
 
 Os arquivos em `.github/instructions/` cobrem arquitetura, backend, qualidade
-de código, frontend, acessibilidade, segurança, testes e DevOps. As instruções
-de frontend, acessibilidade, testes e DevOps declaram padrões `applyTo`; as
-demais são selecionadas conforme o trabalho. Esses documentos complementam,
-mas não substituem, as regras globais e o modelo de orquestração.
+de código, frontend, direção visual, acessibilidade, segurança, testes e DevOps.
+As instruções de frontend, direção visual, acessibilidade, testes e DevOps
+declaram padrões `applyTo`; as demais são selecionadas conforme o trabalho.
+Esses documentos complementam, mas não substituem, as regras globais e o
+modelo de orquestração.
 
 Para evitar divergência, use `.github/copilot-instructions.md` como fonte das
 regras transversais; `.github/AGENTS.md` para orquestração, ownership e

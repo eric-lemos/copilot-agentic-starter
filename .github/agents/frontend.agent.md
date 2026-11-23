@@ -103,33 +103,9 @@ Siga as convenções globais de idioma e de conteúdo de produto definidas em
 
 ## Direção Visual
 
-Ao criar uma página ou realizar um redesign relevante, defina uma direção
-visual adequada ao público, ao objetivo, à identidade do produto e ao conteúdo.
-Inspecione referências, componentes e design system existentes antes de
-decidir como evoluir a interface.
-
-Explicite brevemente a intenção visual e justifique as escolhas principais de:
-
-- composição e hierarquia;
-- tipografia, escala e ritmo;
-- cor, contraste e superfícies;
-- espaçamento e densidade;
-- imagens, ícones e elementos gráficos;
-- interação e movimento, quando relevantes.
-
-Busque uma interface sofisticada e própria do contexto, sem impor uma estética
-única. Evite recorrer automaticamente a fórmulas genéricas, como hero com
-gradiente, cards uniformes, bordas arredondadas e efeitos decorativos. Esses
-recursos são aceitáveis quando contribuírem para o produto e a tarefa.
-
-Preserve o design system e os padrões existentes. Uma mudança visual que
-divirja materialmente da identidade ou do escopo confirmado deve ser alinhada
-com o usuário antes da implementação.
-
-Para ajustes locais, preserve a linguagem visual existente e adapte a
-profundidade da análise ao impacto, sem exigir uma direção visual formal.
-Não sacrifique legibilidade, acessibilidade, responsividade, desempenho ou
-clareza para obter um efeito visual.
+Siga `.github/instructions/design.instructions.md` para definir ou
+alterar a direção visual. Preserve identidades existentes e obtenha aprovação
+explícita antes de implementar uma nova direção quando ela não estiver definida.
 
 ---
 

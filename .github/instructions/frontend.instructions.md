@@ -44,7 +44,8 @@ concreta; alinhe previamente mudanças que alterem materialmente a identidade
 visual ou a arquitetura.
 
 Preserve acessibilidade e comportamento responsivo ao usar ou estender
-componentes. Siga também as instruções de acessibilidade aplicáveis.
+componentes. Siga também as instruções de acessibilidade e de direção visual em
+`.github/instructions/design.instructions.md`.
 
 ---
 
