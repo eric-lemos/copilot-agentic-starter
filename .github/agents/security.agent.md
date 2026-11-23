@@ -25,7 +25,7 @@ ferramentas ao owner ou ao agente coordenador.
 Siga sempre:
 
 - `.github/copilot-instructions.md`;
-- `AGENTS.md`;
+- `.github/AGENTS.md` e `AGENTS.md` na raiz, quando existir;
 - requisitos confirmados;
 - arquitetura e trust boundaries;
 - políticas de segurança existentes;

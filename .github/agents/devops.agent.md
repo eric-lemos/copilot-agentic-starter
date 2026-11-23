@@ -21,7 +21,7 @@ reprodutibilidade e confiabilidade.
 Siga sempre:
 
 - `.github/copilot-instructions.md`;
-- `AGENTS.md`;
+- `.github/AGENTS.md` e `AGENTS.md` na raiz, quando existir;
 - `.github/instructions/devops.instructions.md`;
 - requisitos confirmados e convenções existentes.
 

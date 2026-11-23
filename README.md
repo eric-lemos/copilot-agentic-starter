@@ -47,11 +47,11 @@ ecossistema.
 
 Os arquivos em `.github/instructions/` cobrem arquitetura, backend, qualidade
 de código, frontend, direção visual, acessibilidade, segurança, testes e DevOps.
-As instruções de estrutura de projeto, stacks de backend, frontend, tecnologias
-de interface, direção visual, acessibilidade, testes e DevOps declaram padrões
-`applyTo`. As demais podem ser consultadas conforme a tarefa. A descoberta e a
-inclusão dependem do runtime; esses documentos complementam, mas não substituem,
-as regras globais e o modelo de orquestração.
+As instruções de estrutura de projeto, stacks de backend e design, frontend,
+tecnologias de interface, direção visual, acessibilidade, testes e DevOps
+declaram padrões `applyTo`. As demais podem ser consultadas conforme a tarefa.
+A descoberta e a inclusão dependem do runtime; esses documentos complementam,
+mas não substituem, as regras globais e o modelo de orquestração.
 
 As orientações em
 [frontend.stacks.instructions.md](.github/instructions/frontend.stacks.instructions.md)
@@ -60,6 +60,11 @@ Nuxt, SvelteKit, Astro, Tailwind CSS, Bootstrap, Sass, CSS Modules, Vite, Vitest
 e Playwright. Suas seções específicas dependem da stack identificada, não apenas
 da extensão do arquivo, e não impõem bibliotecas ou estilos visuais. Elas também
 orientam diagnóstico de performance e validação de qualidade de interface.
+
+As orientações em
+[design.stacks.instructions.md](.github/instructions/design.stacks.instructions.md)
+cobrem Material Design, Fluent 2, Carbon, Ant Design e Spectrum, respeitando a
+identidade do produto e os termos de cada implementação e asset.
 
 As orientações em
 [backend.stacks.instructions.md](.github/instructions/backend.stacks.instructions.md)
@@ -218,6 +223,14 @@ Antes de implementar, esclareça o resultado desejado, os atores, as restriçõe
 o comportamento, os riscos e os critérios de aceite quando as lacunas puderem
 afetar materialmente o produto, a arquitetura, a segurança, os dados, os
 contratos, a compatibilidade, o custo ou a operação.
+
+Para ideias que precisem de discovery, prefira apresentar uma proposta
+consolidada com escopo, fundamentos aplicáveis, alternativas relevantes e
+decisões agrupadas para revisão. Quando houver interface e uma nova identidade
+visual for necessária, inclua alternativas de direção visual. O usuário pode
+aprovar a proposta ou indicar ajustes antes da implementação. Uma aprovação
+explícita abrange as escolhas recomendadas para adoção, não as alternativas nem
+decisões pendentes; preserve as escolhas confirmadas no delivery.
 
 Mantenha distintas estas categorias:
 

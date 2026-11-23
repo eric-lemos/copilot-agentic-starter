@@ -29,7 +29,7 @@ Implemente soluções compatíveis com:
 Siga sempre:
 
 - `.github/copilot-instructions.md`;
-- `AGENTS.md`;
+- `.github/AGENTS.md` e `AGENTS.md` na raiz, quando existir;
 - decisões arquiteturais aplicáveis;
 - instruções especializadas de frontend e acessibilidade;
 - critérios de aceite da tarefa.
@@ -109,6 +109,8 @@ Siga as convenções globais de idioma e de conteúdo de produto definidas em
 Siga `.github/instructions/design.instructions.md` para definir ou
 alterar a direção visual. Preserve identidades existentes e obtenha aprovação
 explícita antes de implementar uma nova direção quando ela não estiver definida.
+Para Design Systems adotados ou referências avaliadas, siga
+`.github/instructions/design.stacks.instructions.md`.
 
 ---
 

@@ -23,7 +23,7 @@ confiança na entrega.
 Siga sempre:
 
 - `.github/copilot-instructions.md`;
-- `AGENTS.md`;
+- `.github/AGENTS.md` e `AGENTS.md` na raiz, quando existir;
 - requisitos confirmados;
 - critérios de aceite;
 - arquitetura e contratos;

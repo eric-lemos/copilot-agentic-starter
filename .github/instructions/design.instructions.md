@@ -24,7 +24,8 @@ usuário mudanças que divirjam materialmente dela antes de implementá-las.
 Quando a tarefa exigir uma direção visual e não houver identidade existente ou
 direção previamente aprovada:
 
-1. Identifique lacunas relevantes de contexto e esclareça-as com o usuário.
+1. Identifique lacunas relevantes de contexto; quando possível, apresente
+   alternativas com assumptions explícitas e agrupe as questões para o usuário.
 2. Apresente alternativas visualmente distintas, adequadas ao produto e
    proporcionais ao escopo.
 3. Explique para cada alternativa a intenção e as principais escolhas de
@@ -38,7 +39,9 @@ direção previamente aprovada:
    refine a proposta antes de prosseguir.
 
 Não trate uma recomendação, silêncio ou pedido genérico de implementação como
-aprovação de uma direção visual específica.
+aprovação de uma direção visual específica. A aprovação explícita de uma
+proposta consolidada que recomende uma direção para adoção também aprova essa
+direção; alternativas não recomendadas e decisões pendentes não são aprovadas.
 
 ## Escolhas visuais
 
@@ -49,6 +52,9 @@ aceitáveis quando fizerem sentido para o produto e a tarefa.
 Use componentes e padrões existentes quando apropriado. Não introduza uma
 dependência, uma biblioteca visual ou uma camada global de tokens apenas para
 produzir diferenciação estética.
+
+Para Design Systems adotados ou referências avaliadas, siga
+`.github/instructions/design.stacks.instructions.md`.
 
 ### Tipografia
 

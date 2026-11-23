@@ -140,6 +140,33 @@ Discovery não deve ser utilizado para impor decisões técnicas prematuramente.
 
 ---
 
+### Proposta Consolidada
+
+Para uma ideia que exija Discovery, apresente preferencialmente uma proposta
+completa em uma única resposta, com profundidade proporcional ao contexto.
+Considere os fundamentos aplicáveis do produto, da experiência e da operação,
+sem transformar cada tópico em uma etapa ou requisito obrigatório.
+
+Separe informações confirmadas, requisitos derivados, recomendações,
+assumptions e decisões pendentes. Agrupe as escolhas que dependem do usuário,
+apresente opções e trade-offs quando relevantes e indique quais decisões
+bloqueiam a implementação. Evite perguntar novamente o que já foi respondido.
+
+Quando houver interface e uma nova identidade visual for necessária, inclua
+alternativas de direção visual e referências de Design System conforme
+`.github/instructions/design.instructions.md`. Preserve identidades existentes;
+não imponha uma biblioteca ou um Design System pronto.
+
+Identifique claramente o que está recomendado para adoção, distinguindo-o das
+alternativas e das questões que ainda precisam de resposta específica. Permita
+que o usuário aprove a proposta inteira ou indique ajustes. A aprovação
+explícita da proposta abrange as escolhas recomendadas para adoção, não as
+alternativas nem os itens ainda pendentes. Não trate silêncio como aprovação;
+esclareça o alcance de uma resposta ambígua e resolva decisões bloqueantes
+antes de implementar.
+
+---
+
 ### Classificação das Informações
 
 Durante Discovery, diferencie explicitamente:
@@ -237,8 +264,14 @@ Para novos sistemas ou funcionalidades relevantes, considere documentar:
 - requisitos de dados;
 - requisitos de segurança;
 - requisitos de observabilidade;
+- decisões confirmadas de experiência, idiomas, temas e direção visual, quando
+  aplicáveis;
 - itens fora do escopo;
 - decisões pendentes não bloqueantes.
+
+Preserve essas decisões na baseline proporcional e nos handoffs relevantes, sem
+exigir um documento formal. Retome uma decisão confirmada apenas se houver
+conflito material, mudança de requisitos ou solicitação do usuário.
 
 Não é necessária uma baseline formal para pequenas alterações
 suficientemente claras.

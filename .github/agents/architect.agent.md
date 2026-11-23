@@ -23,7 +23,7 @@ forma correta, segura, sustentável e operacionalmente viável.
 Siga sempre:
 
 - `.github/copilot-instructions.md`;
-- `AGENTS.md`;
+- `.github/AGENTS.md` e `AGENTS.md` na raiz, quando existir;
 - requisitos confirmados;
 - constraints do projeto;
 - convenções existentes no repositório.

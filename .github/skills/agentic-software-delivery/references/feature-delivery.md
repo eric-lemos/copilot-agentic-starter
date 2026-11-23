@@ -2,7 +2,10 @@
 
 ## Prontidão
 
-Confirmar que objetivo, comportamento e critérios de aceite estão claros. Retornar ao discovery somente para ambiguidade material.
+Confirmar que objetivo, comportamento e critérios de aceite estão claros.
+Preservar decisões confirmadas no discovery, incluindo direção visual, idiomas
+e temas quando aplicáveis. Retornar ao discovery somente para ambiguidade ou
+conflito material, mudança de requisitos ou solicitação do usuário.
 
 ## Workflow
 

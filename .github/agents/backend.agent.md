@@ -23,7 +23,7 @@ existentes.
 Siga sempre:
 
 - `.github/copilot-instructions.md`;
-- `AGENTS.md`;
+- `.github/AGENTS.md` e `AGENTS.md` na raiz, quando existir;
 - decisões arquiteturais aplicáveis;
 - instruções especializadas de backend e segurança;
 - contratos acordados;
