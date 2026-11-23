@@ -45,6 +45,30 @@ de frontend, acessibilidade, testes e DevOps declaram padrões `applyTo`; as
 demais são selecionadas conforme o trabalho. Esses documentos complementam,
 mas não substituem, as regras globais e o modelo de orquestração.
 
+## Habilitar o sandbox de agentes no VS Code
+
+No VS Code, o sandbox limita o acesso ao sistema de arquivos e à rede de
+comandos executados pelo terminal e por seus processos filhos. Ele é
+independente das permissões de execução do agente e, por padrão, **não bloqueia
+conexões de saída à rede**.
+
+Para habilitá-lo na sessão atual:
+
+1. Abra uma sessão do Copilot Chat.
+2. No seletor de permissões da sessão, habilite **Sandboxing for terminal**.
+3. Execute `/sandbox policy` no chat para conferir as restrições efetivas.
+
+Para definir o padrão de novas sessões, abra as configurações do VS Code e
+defina `chat.agent.sandbox.enabled` como `"on"`. A configuração padrão é
+`"off"`; alterar esse valor não muda uma sessão existente que já tenha uma
+seleção explícita.
+
+O controle acima se aplica ao harness do Copilot, não configura o sandbox de
+sessões Claude ou Codex e não cobre todas as ferramentas do agente. A
+disponibilidade depende do sistema operacional e do ambiente onde os comandos
+rodam; consulte os pré-requisitos e limitações atualizados na
+[documentação oficial de sandbox de agentes do VS Code](https://code.visualstudio.com/docs/agents/run/agent-sandboxing).
+
 ## Modelo operacional
 
 O sistema possui dois modos adaptativos, selecionados conforme o nível de
