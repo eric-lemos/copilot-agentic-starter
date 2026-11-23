@@ -50,6 +50,36 @@ de frontend, acessibilidade, testes e DevOps declaram padrões `applyTo`; as
 demais são selecionadas conforme o trabalho. Esses documentos complementam,
 mas não substituem, as regras globais e o modelo de orquestração.
 
+## Validar a configuração agentica
+
+Execute o validador local com Python 3, sem dependências adicionais:
+
+```powershell
+python scripts\validate_agentic_config.py
+```
+
+O validador confere o frontmatter dos perfis, os identificadores e referências
+de delegação entre agentes, os campos `applyTo`, metadados de interface em
+YAML e referências locais encontradas na documentação. Ele valida a sintaxe
+básica dos padrões `applyTo`, mas não simula sua interpretação pelo runtime do
+VS Code.
+
+Para executar os testes do validador:
+
+```powershell
+python -m unittest discover -s tests -p test_validate_agentic_config.py
+```
+
+Se novos formatos YAML forem adicionados em `.github/`, registre também como
+eles devem ser validados pelo script.
+
+O GitHub Actions executa o validador e seus testes em pull requests e em pushes
+para `main`. Consulte o resultado na aba **Actions** do repositório; as falhas
+podem ser reproduzidas localmente com os dois comandos acima. A checagem é
+estática e não avalia o comportamento dos agentes em sessões do runtime. A
+sintaxe dos workflows em `.github/workflows/` é interpretada pelo GitHub
+Actions; o validador local não faz validação semântica desses arquivos.
+
 ## Habilitar o sandbox de agentes no VS Code
 
 No VS Code, o sandbox limita o acesso ao sistema de arquivos e à rede de

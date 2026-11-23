@@ -20,10 +20,11 @@ itens são propostas, não requisitos aprovados nem compromissos de prazo.
 **Objetivo:** detectar erros estruturais e referências quebradas nos arquivos
 de agentes, instruções e skills.
 
-- [ ] Inventariar os formatos e relações que precisam de validação.
-- [ ] Definir verificações para frontmatter, identificadores de agentes,
+- [x] Inventariar os formatos e relações que precisam de validação.
+- [x] Definir verificações para frontmatter, identificadores de agentes,
   referências entre arquivos e padrões `applyTo`.
-- [ ] Executar as verificações localmente e integrá-las à CI, se disponível.
+- [x] Executar as verificações localmente e integrar a checagem à pipeline de
+  CI descrita no item 7.
 
 **Critérios de conclusão:**
 
@@ -32,26 +33,7 @@ de agentes, instruções e skills.
   suficiente para correção.
 - A validação não exige credenciais nem serviços externos.
 
-### 2. Avaliar o comportamento dos agentes
-
-**Objetivo:** verificar se os fluxos descritos produzem decisões consistentes
-em tarefas representativas.
-
-- [ ] Criar cenários para tarefa simples, requisito ambíguo, alteração sensível
-  e falha de validação.
-- [ ] Definir uma rubrica para avaliar seleção do fluxo, necessidade de
-  perguntas, delegação, segurança e validação.
-- [ ] Registrar resultados e ajustar instruções somente quando houver
-  evidência de falha ou ambiguidade.
-
-**Critérios de conclusão:**
-
-- Cada cenário tem contexto, resultado esperado e critérios de avaliação.
-- Os cenários podem ser executados sem dados sensíveis ou dependências de
-  produção.
-- Resultados distinguem falhas do sistema, do ambiente e da própria avaliação.
-
-### 3. Tornar explícitos os controles de segurança no runtime
+### 2. Tornar explícitos os controles de segurança no runtime
 
 **Objetivo:** distinguir as regras comportamentais das permissões efetivamente
 aplicadas pelo ambiente.
@@ -71,7 +53,7 @@ aplicadas pelo ambiente.
 - Restrições e limitações conhecidas ficam documentadas sem sugerir acesso a
   produção ou uso de credenciais reais.
 
-### 4. Reduzir duplicação entre instruções
+### 3. Reduzir duplicação entre instruções
 
 **Objetivo:** diminuir divergência e custo de manutenção sem remover controles
 importantes.
@@ -80,16 +62,15 @@ importantes.
   perfis de agentes e skills.
 - [ ] Definir uma fonte canônica para cada regra compartilhada e substituir
   duplicações por referências quando apropriado.
-- [ ] Reexecutar as verificações estruturais e os cenários comportamentais após
+- [ ] Reexecutar as verificações estruturais após
   as consolidações.
 
 **Critérios de conclusão:**
 
 - Regras compartilhadas têm uma fonte principal identificável.
 - Handoffs, validação, segurança e ownership continuam cobertos.
-- Os cenários de avaliação não apresentam regressões conhecidas.
 
-### 5. Estabelecer um ciclo de melhoria contínua
+### 4. Estabelecer um ciclo de melhoria contínua
 
 **Objetivo:** priorizar mudanças a partir de problemas observados, evitando
 métricas ou coleta de dados sem propósito.
@@ -107,7 +88,7 @@ métricas ou coleta de dados sem propósito.
 - O roadmap é revisado quando evidências novas justificarem mudança de
   prioridade.
 
-### 6. Avaliar a criação de um agente DevOps/Platform
+### 5. Avaliar a criação de um agente DevOps/Platform
 
 **Objetivo:** decidir se as instruções de DevOps existentes precisam de um
 agente especializado com ownership próprio.
@@ -131,19 +112,61 @@ agente especializado com ownership próprio.
 - A proposta respeita os controles de segurança e não depende de acesso a
   produção ou credenciais reais.
 
+### 6. Completar as instruções de Design Systems para Frontend
+
+**Objetivo:** orientar os agentes a trabalhar de forma consistente com o
+Design System existente ou, quando não houver um, evitar introduzir padrões
+visuais e dependências sem necessidade.
+
+- [ ] Definir como identificar os componentes, tokens, padrões e documentação
+  do Design System do projeto.
+- [ ] Orientar o uso e a extensão de componentes e tokens existentes, evitando
+  duplicação ou overrides desnecessários.
+- [ ] Definir como proceder quando o projeto não possui Design System ou quando
+  o sistema existente não cobre a necessidade.
+- [ ] Alinhar as orientações com acessibilidade, responsividade e direção
+  visual já definidas para o agente Frontend.
+
+**Critérios de conclusão:**
+
+- As instruções priorizam os padrões e componentes existentes sem presumir
+  biblioteca ou framework específico.
+- Novos componentes, tokens ou dependências são propostos somente quando
+  necessários e consistentes com a arquitetura do projeto.
+- As orientações não conflitam com as instruções de frontend e acessibilidade
+  existentes.
+
+### 7. Integrar a validação agentica a uma pipeline
+
+**Objetivo:** detectar erros na configuração agentica antes da integração de
+alterações no repositório.
+
+- [x] Usar GitHub Actions em pull requests e pushes para a branch `main`.
+- [x] Configurar a pipeline para executar o validador de configuração e seus
+  testes.
+- [x] Documentar como consultar os resultados e reproduzir falhas localmente.
+
+A pipeline está em
+[validate-agentic-config.yml](.github/workflows/validate-agentic-config.yml).
+
+**Critérios de conclusão:**
+
+- Uma falha no validador ou em seus testes resulta em uma execução de CI com
+  status de falha.
+- A pipeline não exige secrets e utiliza apenas as permissões necessárias.
+- A documentação esclarece que a checagem estática não valida o comportamento
+  dos agentes em sessões reais.
+
 ## Decisões em aberto
 
 - Ferramentas e formato para validar Markdown, YAML e referências.
-- Ambiente de CI disponível e forma de executar os cenários comportamentais.
 - Controles de sandbox e permissões compatíveis com o runtime utilizado.
 - Necessidade de um agente DevOps/Platform dedicado.
 - Sinais de qualidade que serão acompanhados e por quanto tempo.
 
 ## Notas de execução
 
-- Começar pela validação estática e pelos cenários de avaliação; manter a
-  revisão de runtime como prioridade antecipada caso o acesso a ferramentas
-  seja ampliado.
+- Começar pela validação estática e pela revisão das prioridades operacionais.
 - Não escolher stack, dependências ou provedor de CI antes de inspecionar as
   opções existentes no workspace.
 - Atualizar este roadmap quando prioridades, decisões ou critérios mudarem.

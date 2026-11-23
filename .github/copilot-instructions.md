@@ -530,6 +530,11 @@ Evite:
 
 Uma falha legítima deve ser investigada antes de modificar o teste.
 
+Ao receber uma solicitação, identifique diretamente seu objetivo, contexto,
+risco e grau de definição. Faça perguntas quando uma decisão material estiver
+em aberto; caso contrário, siga com uma solução proporcional e valide o
+resultado.
+
 ---
 
 ## Validação e Definition of Done
