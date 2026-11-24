@@ -94,6 +94,35 @@ jobs:
 
             self.assertEqual(validate_workspace(root), [])
 
+    def test_validates_skill_invocation_flags_as_booleans(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            self._write(
+                root,
+                ".github/skills/sample/SKILL.md",
+                """---
+name: sample
+description: Sample skill.
+disable-model-invocation: true
+user-invocable: false
+---
+""",
+            )
+            self.assertEqual(validate_workspace(root), [])
+
+            self._write(
+                root,
+                ".github/skills/sample/SKILL.md",
+                """---
+name: sample
+description: Sample skill.
+disable-model-invocation: "true"
+---
+""",
+            )
+            messages = [finding.message for finding in validate_workspace(root)]
+            self.assertIn("'disable-model-invocation' must be a boolean.", messages)
+
     def test_ignores_dependency_markdown(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)

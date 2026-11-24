@@ -801,6 +801,13 @@ Um handoff deve comunicar, quando aplicável:
 
 Diferencie claramente fatos, decisões, recommendations e assumptions.
 
+Quando uma delegação ou resultado compartilhar requisitos de discovery,
+utilize o JSON de handoff definido em
+[discovery-contract.md](skills/agentic-software-delivery/references/discovery-contract.md).
+Preserve IDs, classificações, critérios de aceite e decisões relevantes. Isso
+não exige JSON em conversas com o usuário nem em handoffs sem requisitos de
+discovery.
+
 ---
 
 ## Ownership

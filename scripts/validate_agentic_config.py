@@ -15,6 +15,7 @@ FRONTMATTER_KEY_PATTERN = re.compile(r"^([A-Za-z][A-Za-z0-9_-]*):(?:[ \t]*(.*))?
 INLINE_REFERENCE_PATTERN = re.compile(r"`([^`]+)`")
 MARKDOWN_LINK_PATTERN = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 VALID_NAME_PATTERN = re.compile(r"^[a-z][a-z0-9-]*$")
+SKILL_BOOLEAN_FIELDS = frozenset({"disable-model-invocation", "user-invocable"})
 
 
 @dataclass(frozen=True)
@@ -123,6 +124,8 @@ def parse_frontmatter(text: str, display_path: str) -> tuple[dict[str, object], 
                 findings.append(Finding(display_path, line_number, f"Invalid list value for '{key}'."))
             else:
                 metadata[key] = parsed_list
+        elif key in SKILL_BOOLEAN_FIELDS and raw_value.strip() in {"true", "false"}:
+            metadata[key] = raw_value.strip() == "true"
         else:
             parsed_value = _parse_scalar(raw_value)
             if parsed_value is None:
@@ -370,6 +373,11 @@ def validate_workspace(root: Path) -> list[Finding]:
         for field in ("name", "description"):
             if not isinstance(metadata.get(field), str) or not str(metadata[field]).strip():
                 findings.append(Finding(display_path, 2, f"'{field}' must be a non-empty string."))
+        for field in SKILL_BOOLEAN_FIELDS:
+            if field in metadata and not isinstance(metadata[field], bool):
+                findings.append(
+                    Finding(display_path, _frontmatter_field_line(text, field), f"'{field}' must be a boolean.")
+                )
         name = metadata.get("name")
         if isinstance(name, str) and name != path.parent.name:
             findings.append(

@@ -60,6 +60,9 @@ requisitos confirmados, critérios de aceite, contexto, contratos, restrições,
 riscos e resultado esperado. Não apresente recommendations ou assumptions como
 requisitos confirmados.
 
+Ao compartilhar requisitos de discovery em delegações ou resultados, siga o
+contrato JSON de handoff definido em `.github/AGENTS.md`.
+
 Mantenha ownership por domínio conforme `.github/AGENTS.md`. O implementador continua
 responsável por validar seu trabalho; Testing Agent não substitui essa
 responsabilidade. Security revisa por leitura e encaminha correções ao owner.

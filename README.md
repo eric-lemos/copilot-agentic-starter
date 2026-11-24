@@ -157,7 +157,8 @@ O validador confere o frontmatter dos perfis, os identificadores e referências
 de delegação entre agentes, os campos `applyTo`, metadados de interface em
 YAML e referências locais encontradas na documentação. Ele valida a sintaxe
 básica dos padrões `applyTo`, mas não simula sua interpretação pelo runtime do
-VS Code.
+VS Code. Nas skills, verifica também os campos booleanos de invocação quando
+presentes.
 
 Para executar os testes do validador:
 
@@ -327,6 +328,43 @@ Para trabalhos substanciais, uma baseline de requisitos pode registrar escopo,
 atores, requisitos funcionais e não funcionais, regras de negócio, critérios de
 aceite, restrições, integrações, segurança, dados e itens fora do escopo. Não
 imponha uma baseline formal a uma mudança pequena e clara.
+
+#### Comandos de discovery e delivery
+
+Em uma sessão do Copilot no VS Code, abra este workspace, inicie uma nova
+conversa e selecione a skill pelo menu `/`. Descreva o projeto em linguagem
+natural:
+
+```text
+/discovery Quero criar uma agenda para organizar compromissos.
+```
+
+A skill refina a ideia com você e, após aprovação explícita e resolução das
+decisões bloqueantes, salva `DISCOVERY.md` na raiz. O JSON dentro do Markdown é
+montado pelo agente; você não precisa escrevê-lo. Para usar outro nome ou
+local, informe o caminho ao solicitar o discovery. Se o arquivo já existir, o
+agente deve pedir confirmação antes de substituí-lo.
+
+Inicie a implementação com o arquivo padrão ou informe outro arquivo:
+
+```text
+/delivery
+/delivery docs/requirements/agenda.md
+```
+
+Caminhos relativos são interpretados a partir da raiz do workspace. O arquivo
+alternativo deve seguir o mesmo contrato; se ele não existir, for inválido ou
+não contiver uma baseline aprovada, delivery deve parar e explicar o problema.
+Veja o [contrato e os exemplos JSON](.github/skills/agentic-software-delivery/references/discovery-contract.md).
+Os agentes usam esse formato ao compartilhar requisitos de discovery e
+mantêm a comunicação com você em pt-BR.
+
+As skills são invocadas explicitamente e não substituem o fluxo adaptativo para
+outras solicitações. São instruções para o agente, não validações executadas
+por um programa: confira os arquivos e a atividade do agente. A disponibilidade
+depende do harness e das configurações da sessão; verifique o menu `/` em uma
+nova conversa. Consulte a
+[documentação de Agent Skills do VS Code](https://code.visualstudio.com/docs/agent-customization/agent-skills).
 
 ### Delivery
 
