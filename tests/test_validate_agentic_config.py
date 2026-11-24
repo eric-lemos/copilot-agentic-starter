@@ -94,6 +94,18 @@ jobs:
 
             self.assertEqual(validate_workspace(root), [])
 
+    def test_ignores_dependency_markdown(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            (root / ".github").mkdir()
+            self._write(
+                root,
+                "node_modules/example/README.md",
+                "See `.github/missing.md` for details.\n",
+            )
+
+            self.assertEqual(validate_workspace(root), [])
+
     @staticmethod
     def _write(root: Path, relative_path: str, content: str) -> None:
         path = root / Path(relative_path)

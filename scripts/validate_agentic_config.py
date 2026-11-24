@@ -388,7 +388,11 @@ def validate_workspace(root: Path) -> list[Finding]:
     for path in sorted(ui_metadata_files):
         _validate_ui_metadata(path, root, findings)
 
-    markdown_files = sorted(root.rglob("*.md"))
+    markdown_files = sorted(
+        path
+        for path in root.rglob("*.md")
+        if "node_modules" not in path.relative_to(root).parts
+    )
     _validate_local_references(root, markdown_files, findings)
     return sorted(findings, key=lambda finding: (finding.path, finding.line, finding.message))
 
