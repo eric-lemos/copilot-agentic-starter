@@ -84,6 +84,20 @@ identificar implementação, versão, tema e tokens, consultar as fontes pertine
 e verificar a interface renderizada quando possível. A configuração orienta o
 agente, mas não garante cumprimento ou fidelidade visual em runtime.
 
+Para direção visual e motion, as instruções de
+[design](.github/instructions/design.instructions.md) incluem referências
+a [Taste Skill](https://www.tasteskill.dev/docs),
+[Transitions.dev](https://transitions.dev/library.html) e
+[React Bits](https://reactbits.dev/), com consulta obrigatória nas tarefas de
+interface quando disponíveis. O handoff deve indicar o que foi considerado ou
+não se aplicou, e informar fontes indisponíveis. A primeira é uma skill de design; a
+segunda oferece transições e ferramentas de motion; a terceira é um catálogo
+de componentes React. São referências complementares ao Design System, não
+skills instaladas ou serviços integrados. A consulta é somente leitura e não
+autoriza execução de scripts, uso de serviços externos ou cópia de código.
+React Bits e Transitions.dev possuem termos e restrições próprios, que devem
+ser verificados para qualquer uso pretendido.
+
 As orientações em
 [backend.stacks.instructions.md](.github/instructions/backend.stacks.instructions.md)
 cobrem Python, Go, Node.js, Java, C#, PHP e Ruby, com orientações para seus
@@ -381,3 +395,31 @@ Mantenha este README alinhado à configuração real. Consulte os metadados dos
 agentes, os padrões das instruções e os arquivos de workflow relevantes, sem
 presumir que diagramas ou exemplos representam um pipeline obrigatório em
 runtime.
+
+## Aplicativo de tarefas
+
+O app web fica em `src/frontend/` e usa React, Vite e componentes Material Web
+2.5.0 (Material 3). Crie, edite, conclua e exclua tarefas; escolha entre
+prioridade alta, média e baixa e filtre a lista pelo estado. As tarefas são
+armazenadas somente no `localStorage` deste navegador e não são sincronizadas
+entre dispositivos. O Material Web está em modo de manutenção.
+
+Com Node.js 22 a partir da versão 22.12, 24 ou 26+, na raiz do repositório:
+
+```powershell
+Set-Location src\frontend
+npm ci
+npm run dev
+```
+
+Abra `http://localhost:8000` no navegador. Use esse mesmo endereço e porta para
+acessar as tarefas salvas pela versão anterior; `localStorage` é separado por
+origem (protocolo, hostname e porta). Para parar o servidor, pressione Ctrl+C.
+Se a versão anterior ainda estiver em execução, pare-a antes de iniciar o Vite,
+pois ambos usam a porta 8000.
+Para executar os testes e o build:
+
+```powershell
+npm test
+npm run build
+```

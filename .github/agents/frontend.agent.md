@@ -112,7 +112,9 @@ explícita antes de implementar uma nova direção quando ela não estiver defin
 Identifique o Design System obrigatório e defina suas foundations antes da
 implementação visual. Siga `.github/instructions/design.stacks.instructions.md`
 para escolha, aprovação e fidelidade à implementação, versão, tema, componentes
-e estados relevantes.
+e estados relevantes. Em toda tarefa de interface, consulte as três referências
+complementares em `.github/instructions/design.instructions.md` e aplique seus
+limites e validações; informe fontes indisponíveis.
 
 ---
 
