@@ -167,6 +167,11 @@ alternativas nem os itens ainda pendentes. Não trate silêncio como aprovação
 esclareça o alcance de uma resposta ambígua e resolva decisões bloqueantes
 antes de implementar.
 
+Quando `/discovery` for invocado explicitamente, registre a proposta como
+rascunho conforme o contrato da skill e solicite aceite ou ajustes da proposta
+consolidada. Atualize o arquivo para aprovado somente após aceite explícito e
+resolução das decisões bloqueantes.
+
 ---
 
 ### Classificação das Informações

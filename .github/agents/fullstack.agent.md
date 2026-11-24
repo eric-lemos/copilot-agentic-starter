@@ -35,6 +35,9 @@ Durante Discovery:
   decisões pendentes;
 - apresente preferencialmente uma proposta consolidada e agrupe decisões
   materiais para revisão, conforme `.github/AGENTS.md`;
+- quando `/discovery` for invocado, registre um rascunho e apresente a proposta
+  para aceite ou ajustes; somente registre a baseline aprovada após aceite
+  explícito e resolução das decisões bloqueantes;
 - proponha critérios de aceite proporcionais e permita refinamento iterativo;
 - não trate silêncio como aprovação nem escolha uma stack prematuramente;
 - não inicie implementação antes de resolver decisões bloqueantes.

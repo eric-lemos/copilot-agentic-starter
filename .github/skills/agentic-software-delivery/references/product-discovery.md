@@ -29,6 +29,11 @@ não é uma escolha confirmada: respeite constraints explícitas e alinhe decis�
 materiais antes da adoção. Se persistida em `docs/requirements/`, escrever a
 documentação em pt-BR, conforme `.github/copilot-instructions.md`.
 
+Quando `/discovery` for invocado explicitamente, registre um rascunho conforme
+o contrato da skill e apresente a proposta consolidada para aceite ou ajustes.
+Atualize o arquivo para aprovado somente após aceite explícito e resolução das
+decisões bloqueantes.
+
 ## Proposta para revisão
 
 Prefira uma única resposta abrangente, adaptada à ideia, em vez de uma sequência

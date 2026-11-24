@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+import re
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -8,6 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 from validate_agentic_config import validate_workspace
+from validate_discovery import validate_instruction_reviews
 
 
 class ValidateAgenticConfigTests(unittest.TestCase):
@@ -140,6 +144,151 @@ disable-model-invocation: "true"
         path = root / Path(relative_path)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8")
+
+
+class ValidateDiscoveryInstructionReviewsTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temporary_directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary_directory.cleanup)
+        self.root = Path(self.temporary_directory.name)
+        instructions = self.root / ".github" / "instructions"
+        instructions.mkdir(parents=True)
+        (instructions / "security.instructions.md").write_text(
+            "# Security\n\n## Authorization\n", encoding="utf-8"
+        )
+        (instructions / "testing.instructions.md").write_text(
+            "# Testing\n\n## Scenarios\n", encoding="utf-8"
+        )
+        self.document = {
+            "schema_version": "1.3",
+            "status": "approved",
+            "requirements": [{"id": "RF-01"}],
+            "decisions": [],
+            "instruction_reviews": [
+                {
+                    "instruction": ".github/instructions/security.instructions.md",
+                    "applicability": "applicable",
+                    "reviewed_sections": ["Authorization"],
+                    "rationale": "Access control applies.",
+                    "related_items": ["RF-01"],
+                },
+                {
+                    "instruction": ".github/instructions/testing.instructions.md",
+                    "applicability": "not_applicable",
+                    "reviewed_sections": ["Scenarios"],
+                    "rationale": "No implementation is in scope.",
+                    "related_items": [],
+                },
+            ],
+        }
+
+    def _validate(self, document: dict) -> tuple[list[str], list[str]]:
+        return validate_instruction_reviews(
+            f"# Discovery\n\n```json\n{json.dumps(document)}\n```\n", self.root
+        )
+
+    def test_accepts_complete_reviews(self) -> None:
+        self.assertEqual(self._validate(self.document), ([], []))
+
+    def test_detects_new_instruction_after_review(self) -> None:
+        (self.root / ".github" / "instructions" / "new.instructions.md").write_text(
+            "# New\n", encoding="utf-8"
+        )
+        errors, _ = self._validate(self.document)
+        self.assertTrue(any("new.instructions.md" in error for error in errors))
+
+    def test_reports_missing_duplicate_and_unrecognized_instructions(self) -> None:
+        reviews = self.document["instruction_reviews"]
+        reviews[1] = reviews[0].copy()
+        reviews.append({**reviews[0], "instruction": ".github/instructions/unknown.instructions.md"})
+        errors, _ = self._validate(self.document)
+        self.assertTrue(any("Missing instruction review" in error for error in errors))
+        self.assertTrue(any("Duplicate instruction review" in error for error in errors))
+        self.assertTrue(any("Unknown instruction" in error for error in errors))
+
+    def test_reports_invalid_sections_references_and_unresolved_review(self) -> None:
+        review = self.document["instruction_reviews"][0]
+        review["reviewed_sections"] = ["Nonexistent"]
+        review["rationale"] = " "
+        review["related_items"] = ["missing"]
+        review["applicability"] = "pending"
+        errors, _ = self._validate(self.document)
+        self.assertTrue(any("Unknown section" in error for error in errors))
+        self.assertTrue(any("rationale" in error for error in errors))
+        self.assertTrue(any("Unknown related item" in error for error in errors))
+        self.assertTrue(any("pending" in error for error in errors))
+
+    def test_warns_for_previous_versions_without_reviews(self) -> None:
+        for version in ("1.0", "1.1", "1.2"):
+            with self.subTest(version=version):
+                errors, warnings = self._validate({"schema_version": version})
+                self.assertEqual(errors, [])
+                self.assertTrue(any("not verifiable" in warning for warning in warnings))
+
+    def test_rejects_malformed_or_ambiguous_json(self) -> None:
+        for text in (
+            "No JSON block",
+            "```json\n{}\n```\n```json\n{}\n```",
+            '```json\n{"schema_version": "1.2", "schema_version": "1.3"}\n```',
+            '```json\n{"schema_version": "1.3", "value": NaN}\n```',
+        ):
+            with self.subTest(text=text):
+                errors, _ = validate_instruction_reviews(text, self.root)
+                self.assertTrue(errors)
+
+    def test_rejects_non_string_version_and_status(self) -> None:
+        errors, _ = self._validate({"schema_version": []})
+        self.assertTrue(any("Unsupported schema version" in error for error in errors))
+        self.document["status"] = []
+        errors, _ = self._validate(self.document)
+        self.assertTrue(any("Discovery status" in error for error in errors))
+
+    def test_published_example_passes_cli_validation(self) -> None:
+        repository = Path(__file__).resolve().parents[1]
+        contract = repository / ".github" / "skills" / "agentic-software-delivery" / "references" / "discovery-contract.md"
+        content = contract.read_text(encoding="utf-8")
+        blocks = re.findall(r"```json\n(.*?)\n```", content, re.DOTALL)
+        example = json.loads(blocks[0])
+        self.assertEqual(example["schema_version"], "1.3")
+        path = self.root / "example.md"
+        path.write_text(f"```json\n{blocks[0]}\n```\n", encoding="utf-8")
+        result = subprocess.run(
+            [sys.executable, str(repository / "scripts" / "validate_discovery.py"), str(path)],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("structurally valid", result.stdout)
+
+    def test_cli_warns_for_legacy_and_fails_for_incomplete_reviews(self) -> None:
+        repository = Path(__file__).resolve().parents[1]
+        script = repository / "scripts" / "validate_discovery.py"
+        path = self.root / "example.md"
+        for document, expected_code, message in (
+            ({"schema_version": "1.2"}, 0, "not verifiable"),
+            (
+                {
+                    "schema_version": "1.3",
+                    "status": "approved",
+                    "requirements": [],
+                    "decisions": [],
+                    "instruction_reviews": [],
+                },
+                1,
+                "Missing instruction review",
+            ),
+        ):
+            with self.subTest(document=document):
+                path.write_text(f"```json\n{json.dumps(document)}\n```\n", encoding="utf-8")
+                result = subprocess.run(
+                    [sys.executable, str(script), str(path)],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                self.assertEqual(result.returncode, expected_code)
+                self.assertIn(message, result.stderr)
 
 
 if __name__ == "__main__":

@@ -315,6 +315,8 @@ de direção visual. O usuário pode
 aprovar a proposta ou indicar ajustes antes da implementação. Uma aprovação
 explícita abrange as escolhas recomendadas para adoção, não as alternativas nem
 decisões pendentes; preserve as escolhas confirmadas no delivery.
+O comando explícito `/discovery` registra um rascunho e o atualiza para
+aprovado após aceite explícito e resolução das decisões bloqueantes.
 
 Mantenha distintas estas categorias:
 
@@ -339,11 +341,30 @@ natural:
 /discovery Quero criar uma agenda para organizar compromissos.
 ```
 
-A skill refina a ideia com você e, após aprovação explícita e resolução das
-decisões bloqueantes, salva `DISCOVERY.md` na raiz. O JSON dentro do Markdown é
-montado pelo agente; você não precisa escrevê-lo. Para usar outro nome ou
-local, informe o caminho ao solicitar o discovery. Se o arquivo já existir, o
-agente deve pedir confirmação antes de substituí-lo.
+A skill apresenta uma proposta consolidada, incluindo requisitos, critérios de
+aceite, stack e demais escolhas aplicáveis, e salva um rascunho em
+`DISCOVERY.md` na raiz. Você pode aprovar a proposta inteira ou solicitar
+ajustes; nesse caso, o agente a refina. Após aceite explícito e resolução das
+decisões bloqueantes, o agente atualiza o mesmo arquivo para aprovado. O JSON
+dentro do Markdown é montado pelo agente; você não precisa escrevê-lo. Para usar
+outro nome ou local, informe o caminho ao solicitar o discovery. Se o arquivo
+já existir, o agente deve pedir confirmação antes de substituí-lo.
+
+Para retomar em outra conversa, invoque `/discovery` solicitando a revisão do
+rascunho e informe o caminho se ele não for `DISCOVERY.md`. O agente deve ler
+o documento existente e preservar seu conteúdo ao aplicar os ajustes.
+
+Para cada arquivo de `.github/instructions/`, o discovery registra se ele é
+aplicável, quais seções foram consultadas, a justificativa e os requisitos ou
+decisões relacionados. A verificação local pode ser executada manualmente:
+
+```powershell
+python scripts\validate_discovery.py DISCOVERY.md
+```
+
+Ela verifica a estrutura dos registros e as seções existentes, não comprova a
+leitura ou a qualidade da análise. Documentos anteriores à versão `1.3`
+continuam aceitos com aviso de que essa avaliação não é verificável.
 
 Inicie a implementação com o arquivo padrão ou informe outro arquivo:
 
@@ -354,7 +375,8 @@ Inicie a implementação com o arquivo padrão ou informe outro arquivo:
 
 Caminhos relativos são interpretados a partir da raiz do workspace. O arquivo
 alternativo deve seguir o mesmo contrato; se ele não existir, for inválido ou
-não contiver uma baseline aprovada, delivery deve parar e explicar o problema.
+não estiver aprovado, delivery deve parar e explicar o problema. Um rascunho
+precisa ser revisado e aprovado antes de iniciar a implementação.
 Veja o [contrato e os exemplos JSON](.github/skills/agentic-software-delivery/references/discovery-contract.md).
 Os agentes usam esse formato ao compartilhar requisitos de discovery e
 mantêm a comunicação com você em pt-BR.
