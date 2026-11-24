@@ -130,21 +130,27 @@ As orientações em
 definem a estrutura-base para projetos novos e preservam as convenções de
 projetos existentes. `project/`, relativo à raiz do workspace, é a raiz da
 entrega, cujo conteúdo pode ser transferido para um repositório próprio.
-As aplicações ficam em `project/apps/frontend/` e `project/apps/backend/`;
-uma aplicação fora do escopo mantém apenas um marcador. Frameworks integrados
-preservam sua unidade e organização interna.
+As aplicações necessárias ficam em `project/apps/frontend/` e
+`project/apps/backend/`, respectivamente; aplicações fora do escopo não
+exigem diretório nem marcador. Frameworks integrados preservam sua unidade e
+organização interna.
 
-A estrutura também prevê `project/.github/workflows/`, `project/infra/` e
-`project/scripts/`, com `packages/` opcional. Aplicações implementadas possuem
-manifests, Dockerfile e exemplos de ambiente próprios; a raiz inclui
+A estrutura prevê `project/.github/workflows/`, `project/infra/` e
+`project/scripts/` somente quando necessários, assim como seus subdiretórios e
+`packages/`. Os componentes criados seguem os caminhos e as convenções
+aplicáveis, respeitando exigências dos frameworks. Aplicações implementadas
+possuem manifests, Dockerfile e exemplos de ambiente próprios; a raiz inclui
 `docker-compose.yml` e `.env.example`. O Compose contempla somente serviços
-necessários. Infraestrutura e pastas reservadas não implicam adoção automática
-de cloud ou serviços. Projetos existentes não são movidos automaticamente.
+necessários. A estrutura não implica adoção automática de cloud ou serviços.
+Projetos existentes não são movidos automaticamente.
 
-Os workflows em `project/.github/workflows/` pertencem ao projeto entregue;
-eles só são reconhecidos pelo GitHub Actions quando o conteúdo de `project/`
-estiver na raiz de um repositório. Os workflows deste starter permanecem em
-`.github/workflows/` na raiz do repositório atual.
+Quando necessários, os workflows em `project/.github/workflows/` pertencem ao
+projeto entregue e incluem somente jobs e etapas pertinentes ao escopo. Seus
+arquivos ficam diretamente nesse diretório e só são reconhecidos pelo GitHub
+Actions quando o conteúdo de `project/` estiver na raiz de um repositório. Sem
+workflows necessários, não se criam diretórios apenas para preenchimento. Os
+workflows deste starter permanecem em `.github/workflows/` na raiz do repositório
+atual.
 
 Para evitar divergência, use `.github/copilot-instructions.md` como fonte das
 regras transversais; `.github/AGENTS.md` para orquestração, ownership e

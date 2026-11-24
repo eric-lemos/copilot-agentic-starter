@@ -6,8 +6,9 @@ applyTo: "**"
 # Instruções de Estrutura de Projeto
 
 Organize arquivos de forma previsível e compatível com a stack, o escopo e as
-convenções do projeto. Para projetos novos, use a estrutura-base abaixo sem
-impor sua organização interna a frameworks que exijam outros caminhos.
+convenções do projeto. Para projetos novos, siga a estrutura abaixo para os
+componentes necessários, sem criar diretórios sem finalidade nem impor caminhos
+incompatíveis com o framework.
 
 ## Projetos existentes
 
@@ -24,17 +25,18 @@ impor sua organização interna a frameworks que exijam outros caminhos.
 - Crie o projeto em `project/` na raiz do workspace. Essa é a raiz da entrega:
   seu conteúdo deve poder ser transferido para a raiz de um repositório próprio,
   sem depender da configuração agentic deste workspace.
-- Use `project/apps/frontend/` e `project/apps/backend/` como caminhos padrão
-  das aplicações. Mantenha ambos os diretórios mesmo quando apenas uma aplicação
-  estiver no escopo. Para a aplicação não solicitada, crie somente um marcador
-  como `.gitkeep`; não invente código, stack, Dockerfile ou serviço executável.
-  Preserve a unidade de frameworks integrados em vez de separá-los artificialmente.
-- Mantenha em `project/` os diretórios `.github/workflows/`, `apps/`,
-  `infra/docker/`, `infra/k8s/`, `infra/terraform/` e `scripts/`, além de
-  `.gitignore` e `README.md`. Use marcadores para diretórios que precisem ser
-  preservados no Git sem conteúdo. `packages/` é opcional e deve conter apenas
-  código ou configuração compartilhados com consumidores reais. A estrutura
-  não implica adotar Kubernetes, Terraform, cloud ou serviços não solicitados.
+- Use `project/apps/frontend/` para a aplicação frontend e
+  `project/apps/backend/` para a aplicação backend quando estiverem no escopo.
+  Não crie a aplicação ausente nem seu diretório ou marcador. Preserve a unidade
+  de frameworks integrados em vez de separá-los artificialmente.
+- Crie `.github/workflows/`, `infra/docker/`, `infra/k8s/`, `infra/terraform/`
+  e `scripts/` em `project/` somente quando houver conteúdo correspondente
+  necessário. Quando necessário, use esses caminhos para workflows, arquivos
+  auxiliares de Docker, recursos Kubernetes, configuração Terraform e scripts,
+  respectivamente. Crie `packages/` apenas para código ou configuração
+  compartilhados com consumidores reais. Mantenha `.gitignore` e `README.md`
+  na raiz. Não crie diretórios vazios ou marcadores para funcionalidades fora
+  do escopo; a estrutura não implica adotar tecnologias ou serviços.
 - Coloque manifests, configuração, código, testes e assets de cada aplicação
   real em sua raiz. Cada aplicação deve ter seu próprio manifest ou arquivo de
   dependências conforme sua stack; preserve workspaces compartilhados quando
@@ -44,19 +46,24 @@ impor sua organização interna a frameworks que exijam outros caminhos.
   configuração de ambiente. Mantenha também `.env.example` e um arquivo
   `docker-compose.yml` na raiz de `project/`. Não inclua secrets reais nos
   exemplos; ignore arquivos de ambiente reais e documente apenas as variáveis
-  necessárias. Uma aplicação ausente permanece somente com seu marcador.
+  necessárias.
 - Configure o Compose para iniciar com `docker compose up` as aplicações e
   dependências locais que existirem no escopo, sem inventar backend, banco de
   dados ou outros serviços. Se não houver serviço executável ou não for possível
   atender a esse comando, explique a limitação e alinhe uma exceção com o
   usuário; não apresente uma configuração não funcional como pronta.
-- Os workflows da entrega ficam em `project/.github/workflows/` e devem usar
-  caminhos relativos à futura raiz do repositório do projeto. Neste workspace,
-  o GitHub Actions reconhece os workflows em `.github/workflows/` na raiz do
-  repositório atual, não os aninhados em `project/`. Os workflows da entrega
-  passam a ser reconhecidos quando o conteúdo de `project/` for transferido
-  para a raiz de um repositório Git. Não sobrescreva a configuração agentic ou
-  os workflows deste repositório.
+- Para GitHub Actions, crie somente os workflows necessários ao escopo, sem
+  jobs ou etapas para aplicações, infraestrutura ou tecnologias ausentes. Se
+  nenhum workflow for necessário, não crie `project/.github/workflows/` nem
+  seus diretórios ancestrais apenas para preenchimento. Quando necessários,
+  coloque os arquivos `.yml` ou `.yaml` diretamente em
+  `project/.github/workflows/` e use caminhos relativos à futura raiz do
+  repositório do projeto.
+- Neste workspace, o GitHub Actions reconhece os workflows em
+  `.github/workflows/` na raiz do repositório atual, não os aninhados em
+  `project/`. Os workflows da entrega passam a ser reconhecidos quando o
+  conteúdo de `project/` for transferido para a raiz de um repositório Git.
+  Não sobrescreva a configuração agentic ou os workflows deste repositório.
 - Execute scaffolding, instalação e comandos do projeto na raiz correspondente.
   Preserve a estrutura interna exigida pela tecnologia, inclusive um `src/`
   interno quando apropriado. Não confunda o diretório de projetos do workspace
@@ -75,6 +82,11 @@ impor sua organização interna a frameworks que exijam outros caminhos.
 
 ## Organização interna
 
+- Para os componentes criados em `apps/frontend/`, `apps/backend/` e `infra/`,
+  siga os caminhos e as convenções pertinentes definidos nesta instrução.
+  Crie os subdiretórios somente quando seu conteúdo for necessário; não use
+  marcadores para preencher uma árvore. Respeite caminhos obrigatórios da stack
+  ou do framework quando forem diferentes.
 - Siga as convenções da stack e agrupe por funcionalidade quando isso melhorar
   coesão e localização do código. Mantenha juntos os arquivos relacionados,
   sem misturar responsabilidades que exijam boundaries distintos.
@@ -89,12 +101,14 @@ impor sua organização interna a frameworks que exijam outros caminhos.
 
 ## Organização conforme a tecnologia
 
-Aplique somente as referências pertinentes à stack e à versão identificadas.
-Os caminhos abaixo são relativos à raiz de cada projeto, não ao workspace.
-Priorize a estrutura existente, depois as convenções do framework e, na ausência
-delas, a organização-base. Consulte manifests, configuração de build e fontes
-locais; confirme caminhos dependentes de versão antes de criá-los. Os exemplos
-abaixo não exigem todos os diretórios nem autorizam escolher uma stack.
+Aplique as orientações pertinentes à stack e à versão identificadas aos
+componentes necessários. Os caminhos abaixo são relativos à raiz de cada
+aplicação, não ao workspace. Em projetos existentes, priorize a estrutura
+existente; em projetos novos, siga os caminhos indicados quando necessários,
+respeitando exigências diferentes do framework. Consulte manifests,
+configuração de build e fontes locais; confirme caminhos dependentes de versão
+antes de criá-los. As orientações não exigem diretórios sem conteúdo nem
+autorizam escolher uma stack.
 
 ### Frontend
 
