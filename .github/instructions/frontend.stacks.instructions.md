@@ -14,6 +14,25 @@ configuração e os componentes relevantes do projeto. Uma extensão de arquivo
 por si só não identifica o framework. Em projetos com várias aplicações, use
 a stack e as versões da aplicação afetada. Aplique apenas as seções pertinentes
 e respeite as APIs e convenções existentes, sem impor migração ou biblioteca.
+Em projetos novos, após alinhar as escolhas materiais, aplique as seções das
+tecnologias escolhidas também à configuração inicial, aos componentes e à
+validação; não dependa de padrões preexistentes para usá-las.
+Se a área afetada incluir código server-side, inclusive em JSX ou TSX, leia
+também `.github/instructions/backend.stacks.instructions.md` e
+`.github/instructions/backend.instructions.md`; não dependa apenas da extensão
+para identificar o boundary.
+Para interface ou tema em JavaScript ou TypeScript, leia
+`.github/instructions/frontend.instructions.md`,
+`.github/instructions/design.instructions.md` e
+`.github/instructions/accessibility.instructions.md` quando pertinentes e
+ainda não estiverem no contexto. Para interface ou tema, leia também
+`.github/instructions/design.stacks.instructions.md`, incluindo a escolha
+obrigatória do sistema e suas foundations.
+
+Para mudanças relevantes, valide comportamento, estados, acessibilidade e build
+afetados com as ferramentas disponíveis. Não afirme qualidade visual sem
+evidência; siga a verificação de Design System em
+`.github/instructions/design.stacks.instructions.md` quando aplicável.
 
 ## HTML
 

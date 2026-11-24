@@ -1,6 +1,6 @@
 ---
 description: Use ao implementar backend e persistência com as stacks identificadas no projeto.
-applyTo: "**/*.{py,pyi,go,js,jsx,mjs,cjs,ts,tsx,mts,cts,java,cs,php,rb,erb,sql}"
+applyTo: "**/*.{py,pyi,go,js,mjs,cjs,ts,mts,cts,java,cs,php,rb,erb,sql}"
 ---
 
 # Instruções para Stacks de Backend
@@ -14,6 +14,16 @@ determina, por si só, se o código é backend ou qual runtime é utilizado.
 Em projetos com várias aplicações, aplique apenas as orientações pertinentes a
 cada uma. Não presuma framework, biblioteca ou banco de dados e não imponha
 uma migração de stack ou versão.
+
+Em projetos novos, após alinhar as escolhas materiais, aplique as práticas das
+seções das tecnologias escolhidas desde a configuração inicial até os contratos
+e testes; não dependa de padrões preexistentes para usá-las. Use as APIs
+compatíveis com as versões selecionadas e verifique lacunas na documentação
+pertinente quando necessário.
+
+Para mudanças relevantes, associe a solução às APIs e contratos adotados e
+valide comportamento, entradas, erros, autorização e persistência afetados
+conforme o risco, usando ferramentas e ambientes locais seguros.
 
 ## Python
 

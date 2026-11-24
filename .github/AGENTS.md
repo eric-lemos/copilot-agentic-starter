@@ -152,10 +152,12 @@ assumptions e decisões pendentes. Agrupe as escolhas que dependem do usuário,
 apresente opções e trade-offs quando relevantes e indique quais decisões
 bloqueiam a implementação. Evite perguntar novamente o que já foi respondido.
 
-Quando houver interface e uma nova identidade visual for necessária, inclua
-alternativas de direção visual e referências de Design System conforme
-`.github/instructions/design.instructions.md`. Preserve identidades existentes;
-não imponha uma biblioteca ou um Design System pronto.
+Quando houver interface, identifique o Design System obrigatório e suas
+foundations; se não houver escolha, recomende opções e alinhe a decisão antes
+da implementação visual conforme `.github/instructions/design.stacks.instructions.md`.
+Preserve identidades existentes e não imponha uma biblioteca ou um sistema
+específico. Quando necessária uma nova identidade, apresente alternativas de
+direção visual conforme `.github/instructions/design.instructions.md`.
 
 Identifique claramente o que está recomendado para adoção, distinguindo-o das
 alternativas e das questões que ainda precisam de resposta específica. Permita
@@ -264,8 +266,8 @@ Para novos sistemas ou funcionalidades relevantes, considere documentar:
 - requisitos de dados;
 - requisitos de segurança;
 - requisitos de observabilidade;
-- decisões confirmadas de experiência, idiomas, temas e direção visual, quando
-  aplicáveis;
+- decisões confirmadas de experiência, idiomas, temas, direção visual, Design
+  System e foundations, quando aplicáveis;
 - itens fora do escopo;
 - decisões pendentes não bloqueantes.
 
@@ -329,8 +331,10 @@ Solução:
 "Use Kafka."
 ```
 
-A decisão técnica deve ocorrer durante análise de arquitetura ou delivery,
-considerando contexto, escala e constraints.
+Uma proposta de Discovery pode recomendar opções técnicas sem tratá-las como
+decisões confirmadas. A escolha deve considerar contexto, escala e constraints
+e ser alinhada antes da adoção; decisões pendentes podem ser resolvidas na
+análise de arquitetura ou no delivery.
 
 Quando o usuário especificar explicitamente uma tecnologia como requisito ou
 constraint, respeite essa decisão salvo risco técnico ou de segurança
@@ -373,36 +377,9 @@ maneira segura usando padrões existentes.
 
 ## Estrutura dos Agentes
 
-A estrutura principal é:
-
-```text
-                         User
-                          │
-                          ▼
-                      Fullstack
-                     Orchestrator
-                          │
-              ┌───────────┼───────────┬───────────┐
-              ▼           ▼           ▼           ▼
-          Architect    Frontend    Backend      DevOps
-              │           │           │           │
-              └───────────┼───────────┴───────────┘
-                          ▼
-                       Security
-                          │
-                          ▼
-                    Testing Agent
-                          │
-                          ▼
-                      Validation
-                          │
-                          ▼
-                         Done
-```
-
-Essa estrutura representa responsabilidades.
-
-Não representa um pipeline obrigatório.
+Fullstack coordena Architect, Frontend, Backend, DevOps, Security e Testing
+conforme a necessidade. A estrutura representa responsabilidades, não um
+pipeline obrigatório.
 
 ---
 
@@ -719,81 +696,11 @@ O Fullstack Agent deve selecionar o workflow a partir de:
 - necessidade de decisão arquitetural;
 - necessidade de revisão independente.
 
-### Exemplo: mudança simples de frontend
-
-```text
-Fullstack
-    │
-    ▼
-Frontend
-    │
-    ▼
-Validation
-```
-
-### Exemplo: regra de negócio
-
-```text
-Fullstack
-    │
-    ▼
-Backend
-    │
-    ▼
-Relevant Tests
-    │
-    ▼
-Validation
-```
-
-### Exemplo: funcionalidade fullstack
-
-```text
-                     Fullstack
-                         │
-              ┌──────────┴──────────┐
-              ▼                     ▼
-          Frontend               Backend
-              │                     │
-              └──────────┬──────────┘
-                         ▼
-                  Security if needed
-                         │
-                         ▼
-                 Tests / Validation
-```
-
-Architect participa quando houver decisão estrutural relevante.
-
-### Exemplo: funcionalidade sensível
-
-```text
-                     Fullstack
-                         │
-               Requirements Baseline
-                         │
-              ┌──────────┴──────────┐
-              ▼                     ▼
-          Architect              Security
-              │                     │
-              └──────────┬──────────┘
-                         ▼
-                       Design
-                         │
-               ┌─────────┴─────────┐
-               ▼                   ▼
-           Frontend             Backend
-               │                   │
-               └─────────┬─────────┘
-                         ▼
-                  Security Review
-                         │
-                         ▼
-                   Testing Agent
-                         │
-                         ▼
-                     Validation
-```
+Uma mudança local pode ser implementada e validada diretamente pelo owner.
+Em trabalho fullstack, coordene os domínios afetados e alinhe contratos antes
+da integração. Envolva Architect para decisões estruturais e Security para
+revisão independente quando necessários; em mudanças sensíveis, considere-os
+desde a definição dos requisitos. Testing complementa a validação do owner.
 
 ---
 

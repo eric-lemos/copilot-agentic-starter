@@ -33,15 +33,16 @@ no projeto: documentação, componentes compartilhados, temas, tokens, exemplos
 e configuração de bibliotecas. Não presuma framework, biblioteca ou que exista
 um Design System formal.
 
-Prefira componentes, tokens e padrões já adotados. Estenda o mecanismo
-existente quando necessário em vez de criar duplicatas ou overrides locais
-que divergem do sistema compartilhado.
+É obrigatório identificar um Design System para construir ou alterar
+interfaces e definir as foundations aplicáveis antes da implementação visual.
+Se ainda não houver escolha, preserve a identidade existente e siga o processo
+de escolha e aprovação em `.github/instructions/design.stacks.instructions.md`.
 
-Se não houver um sistema ou se ele não cobrir a necessidade, siga os padrões
-locais e mantenha a solução limitada à feature. Não introduza uma camada global
-de tokens, uma nova linguagem visual ou uma dependência sem necessidade
-concreta; alinhe previamente mudanças que alterem materialmente a identidade
-visual ou a arquitetura.
+Prefira componentes, tokens e padrões adotados. Se o sistema não cobrir a
+necessidade, estenda os mecanismos existentes de forma localizada, sem duplicar
+componentes ou divergir do sistema compartilhado. Não introduza uma camada
+global de tokens, uma nova linguagem visual ou uma dependência sem necessidade
+concreta; alinhe mudanças materiais de identidade ou arquitetura.
 
 Preserve acessibilidade e comportamento responsivo ao usar ou estender
 componentes. Siga também as instruções de acessibilidade e de direção visual em

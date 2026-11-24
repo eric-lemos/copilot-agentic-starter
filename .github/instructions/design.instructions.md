@@ -53,8 +53,8 @@ Use componentes e padrões existentes quando apropriado. Não introduza uma
 dependência, uma biblioteca visual ou uma camada global de tokens apenas para
 produzir diferenciação estética.
 
-Para Design Systems adotados ou referências avaliadas, siga
-`.github/instructions/design.stacks.instructions.md`.
+A escolha de um Design System e a definição de foundations são obrigatórias
+para interfaces; siga `.github/instructions/design.stacks.instructions.md`.
 
 ### Tipografia
 

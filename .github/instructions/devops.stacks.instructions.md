@@ -14,10 +14,20 @@ antes de aplicar uma seção. A extensão de um arquivo, por si só, não identi
 a ferramenta nem torna seu conteúdo operacional. Não introduza ferramentas,
 provedores ou serviços apenas porque estão listados aqui.
 
+Para uma capacidade operacional nova, aplique as seções das ferramentas
+escolhidas desde a configuração inicial e valide o que for possível localmente.
+Não dependa de convenções preexistentes para aplicar as práticas nem presuma
+que uma ferramenta listada esteja instalada ou autorizada.
+
 Restrinja validações a operações locais autorizadas e seguras. Não execute
 deployments, alterações de estado remoto, acesso a cloud, SSH, produção ou
 recursos compartilhados. Se uma verificação depender desses acessos ou de
 credenciais reais, informe a limitação e proponha uma alternativa local.
+
+Para mudanças relevantes, valide sintaxe, configurações, permissões e
+comportamento pertinente com ferramentas locais disponíveis e recursos
+seguros e descartáveis. Validação local não comprova funcionamento em
+ambientes remotos e não autoriza acesso a eles.
 
 ## CI/CD
 

@@ -109,8 +109,10 @@ Siga as convenções globais de idioma e de conteúdo de produto definidas em
 Siga `.github/instructions/design.instructions.md` para definir ou
 alterar a direção visual. Preserve identidades existentes e obtenha aprovação
 explícita antes de implementar uma nova direção quando ela não estiver definida.
-Para Design Systems adotados ou referências avaliadas, siga
-`.github/instructions/design.stacks.instructions.md`.
+Identifique o Design System obrigatório e defina suas foundations antes da
+implementação visual. Siga `.github/instructions/design.stacks.instructions.md`
+para escolha, aprovação e fidelidade à implementação, versão, tema, componentes
+e estados relevantes.
 
 ---
 
@@ -147,121 +149,45 @@ Não mostre uma tela vazia sem explicar o estado.
 
 ## Acessibilidade
 
-Considere WCAG 2.2 AA como referência quando aplicável.
-
-Prefira elementos HTML semânticos.
-
-Garanta, conforme necessário:
-
-- keyboard navigation;
-- visible focus;
-- logical focus order;
-- focus management;
-- accessible names;
-- labels associados aos campos;
-- mensagens de validação associadas;
-- heading hierarchy;
-- sufficient color contrast;
-- estado não comunicado apenas por cor;
-- alternative text;
-- screen reader announcements;
-- reduced motion;
-- touch target adequado.
-
-Use ARIA somente quando a semântica nativa não for suficiente.
-
-Não use elementos não interativos como substitutos de `button`, `a`, `input`
-ou outros elementos semânticos sem necessidade real.
+Siga `.github/instructions/accessibility.instructions.md`; se não estiver no
+contexto, leia-o antes de alterar a interface. Considere WCAG 2.2 AA,
+semântica, teclado, foco, contraste, alvos de toque adequados e movimento
+reduzido quando aplicáveis. Use ARIA somente quando a semântica nativa não
+for suficiente.
 
 ---
 
 ## Responsividade
 
-Implemente comportamento responsivo de acordo com requisitos e padrões do
-projeto.
-
-Considere:
-
-- mobile;
-- tablet;
-- desktop;
-- zoom;
-- textos longos;
-- localization expansion;
-- diferentes densidades de conteúdo.
-
-Evite layouts dependentes de dimensões fixas sem justificativa.
-
-Não esconda funcionalidades essenciais apenas para acomodar telas menores.
+Adapte a interface aos viewports, zoom, textos longos, localização e densidade
+de conteúdo suportados. Não oculte funções essenciais em telas menores nem
+dependa de dimensões fixas sem justificativa.
 
 ---
 
 ## Componentes
 
-Prefira componentes:
-
-- focados;
-- previsíveis;
-- testáveis;
-- composable;
-- consistentes;
-- com APIs explícitas.
-
-Evite:
-
-- componentes excessivamente grandes;
-- abstrações genéricas prematuras;
-- props ambíguas;
-- duplicação de regras de negócio;
-- efeitos colaterais ocultos;
-- coupling desnecessário;
-- global state sem necessidade.
-
-Extraia um componente quando houver benefício real de responsabilidade,
-reuso ou testabilidade.
-
-Não fragmente interfaces simples em dezenas de componentes sem benefício.
+Prefira componentes focados, testáveis e consistentes, com APIs explícitas.
+Extraia-os quando houver benefício real de responsabilidade, reuso ou
+testabilidade, sem criar abstrações prematuras ou duplicar regras de negócio.
 
 ---
 
 ## Estado
 
-Use o mecanismo de estado já estabelecido.
-
-Diferencie:
-
-- local UI state;
-- server state;
-- derived state;
-- shared application state;
-- URL state.
-
-Não replique server state desnecessariamente em global state.
-
-Evite armazenar valores que podem ser derivados com segurança.
-
-Mantenha transições de estado previsíveis.
+Use o mecanismo estabelecido e diferencie estado local, do servidor,
+derivado, compartilhado e de URL. Evite duplicação e mantenha transições
+previsíveis.
 
 ---
 
 ## Formulários
 
-Formulários devem:
-
-- possuir labels visíveis quando apropriado;
-- indicar campos obrigatórios;
-- preservar input quando ocorrer erro recuperável;
-- apresentar mensagens úteis;
-- associar erros aos campos;
-- prevenir submissão duplicada;
-- indicar progresso;
-- permitir navegação por teclado;
-- tratar erros de servidor;
-- manter consistência entre validação client-side e server-side.
-
-Client-side validation melhora UX, mas não substitui server-side validation.
-
-Não confie em campos ocultos ou desabilitados como controle de segurança.
+Siga `.github/instructions/frontend.instructions.md` para labels, erros,
+estados e preservação de input. Trate erros do servidor e mantenha validações
+client-side e server-side consistentes. A validação client-side não substitui
+validação ou autorização server-side; campos ocultos ou desabilitados não são
+controles de segurança.
 
 ---
 
@@ -411,6 +337,7 @@ usuário:
 - components changed;
 - contracts consumed;
 - UX decisions;
+- Design System e versão utilizados, desvios relevantes e fontes consultadas;
 - accessibility considerations;
 - security considerations;
 - tests added or updated;

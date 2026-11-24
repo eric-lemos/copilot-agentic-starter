@@ -45,13 +45,21 @@ ecossistema.
 
 ### Instruções por domínio
 
-Os arquivos em `.github/instructions/` cobrem arquitetura, backend, qualidade
-de código, frontend, direção visual, acessibilidade, segurança, testes e DevOps.
+Os arquivos em `.github/instructions/` cobrem arquitetura, backend, frontend,
+direção visual, acessibilidade, segurança, testes e DevOps. As regras gerais
+de qualidade de código ficam em `.github/copilot-instructions.md`.
 As instruções de estrutura de projeto, stacks de backend e design, frontend,
 tecnologias de interface, direção visual, acessibilidade, testes e DevOps
 declaram padrões `applyTo`. As demais podem ser consultadas conforme a tarefa.
 A descoberta e a inclusão dependem do runtime; esses documentos complementam,
 mas não substituem, as regras globais e o modelo de orquestração.
+Arquivos JSX e TSX não ativam automaticamente as instruções de stack backend:
+quando houver código server-side nesses arquivos, as instruções de tecnologias
+de interface orientam a consultar as regras de backend. A inclusão por
+referência não é garantida; confira a leitura efetiva na sessão.
+As instruções de Design System são ativadas por arquivos de interface; para
+JavaScript e TypeScript sem JSX, as instruções de tecnologias de interface
+orientam consultá-las quando a tarefa envolver interface ou tema.
 
 As orientações em
 [frontend.stacks.instructions.md](.github/instructions/frontend.stacks.instructions.md)
@@ -59,32 +67,62 @@ cobrem HTML, CSS, JavaScript, TypeScript, React, Vue, Angular, Svelte, Next.js,
 Nuxt, SvelteKit, Astro, Tailwind CSS, Bootstrap, Sass, CSS Modules, Vite, Vitest
 e Playwright. Suas seções específicas dependem da stack identificada, não apenas
 da extensão do arquivo, e não impõem bibliotecas ou estilos visuais. Elas também
-orientam diagnóstico de performance e validação de qualidade de interface.
+orientam escolha e fidelidade à stack, diagnóstico de performance e validação
+de qualidade de interface.
 
 As orientações em
 [design.stacks.instructions.md](.github/instructions/design.stacks.instructions.md)
 cobrem Material Design, Fluent 2, Carbon, Ant Design e Spectrum, respeitando a
-identidade do produto e os termos de cada implementação e asset.
+identidade do produto e os termos de cada implementação e asset. Essas opções
+devem ser avaliadas prioritariamente nas recomendações, sem constituir uma
+lista fechada: a escolha deve considerar o produto e a stack, preservando
+sistemas já adotados. Para construir ou alterar interfaces, o fluxo exige um
+Design System escolhido e foundations aplicáveis antes da implementação visual;
+se não houver escolha, orienta propor alternativas e obter aprovação. A escolha
+não impõe uma biblioteca ou migração. Para mudanças visuais relevantes, orienta
+identificar implementação, versão, tema e tokens, consultar as fontes pertinentes
+e verificar a interface renderizada quando possível. A configuração orienta o
+agente, mas não garante cumprimento ou fidelidade visual em runtime.
 
 As orientações em
 [backend.stacks.instructions.md](.github/instructions/backend.stacks.instructions.md)
 cobrem Python, Go, Node.js, Java, C#, PHP e Ruby, com orientações para seus
 frameworks e para PostgreSQL, MySQL, MongoDB e Redis. Elas se aplicam conforme
-a stack identificada, orientam diagnóstico de performance e qualidade e não
-impõem frameworks, bibliotecas ou bancos de dados.
+a stack identificada, orientam escolha e fidelidade à stack, diagnóstico de
+performance e qualidade e não impõem frameworks, bibliotecas ou bancos de dados.
 
 As orientações em
 [devops.stacks.instructions.md](.github/instructions/devops.stacks.instructions.md)
 cobrem GitHub Actions, GitLab CI, Jenkins, Docker, Podman, Kubernetes, Helm,
 Terraform, OpenTofu, Ansible, Prometheus, Grafana, OpenTelemetry e Argo CD.
 Elas se aplicam às ferramentas identificadas, sem ampliar os limites de execução
-local nem exigir serviços externos, e orientam diagnóstico de performance e
-qualidade operacional.
+local nem exigir serviços externos, e orientam escolha e fidelidade à stack,
+diagnóstico de performance e qualidade operacional.
+
+Ao recomendar tecnologias para projetos novos ou existentes, avalie primeiro
+as opções documentadas pertinentes e justifique a escolha. A lista não é
+fechada: quando as opções não forem adequadas, outra alternativa pode ser
+proposta com justificativa. Relacione cada escolha a uma necessidade e avalie
+compatibilidade, sem adicionar tecnologias apenas por estarem listadas.
+Preserve tecnologias já adotadas e decisões explícitas do usuário; não proponha
+migração apenas por uma tecnologia não estar listada. Em projetos novos, as
+práticas das seções escolhidas orientam também a configuração inicial, mesmo
+sem padrões preexistentes. Os fluxos orientam consultar documentação compatível
+com as versões adotadas e relatar fontes e validações, sem presumir
+compatibilidade nem substituir testes reais.
 
 As orientações em
 [project.structure.instructions.md](.github/instructions/project.structure.instructions.md)
 definem uma estrutura-base adaptável para projetos novos e preservam as
-convenções de projetos existentes.
+convenções de projetos existentes. Novos projetos solicitados devem ser criados
+sob `src/`, relativo à raiz do workspace, preferencialmente em `src/frontend/`
+ou `src/backend/` conforme a responsabilidade. O nome do projeto não é obrigatório;
+preserve a unidade de frameworks fullstack integrados e diferencie aplicações
+independentes quando necessário. Cada aplicação mantém sua estrutura interna e
+manifests; projetos existentes não são movidos automaticamente.
+Incluem referências por tecnologia e regras
+para separar assets processados, arquivos públicos, recursos de runtime e
+outputs gerados, sem exigir uma árvore única ou diretórios vazios.
 
 Para evitar divergência, use `.github/copilot-instructions.md` como fonte das
 regras transversais; `.github/AGENTS.md` para orquestração, ownership e
@@ -122,6 +160,35 @@ podem ser reproduzidas localmente com os dois comandos acima. A checagem é
 estática e não avalia o comportamento dos agentes em sessões do runtime. A
 sintaxe dos workflows em `.github/workflows/` é interpretada pelo GitHub
 Actions; o validador local não faz validação semântica desses arquivos.
+
+### Avaliar comportamento e consumo
+
+Para comparar uma revisão da configuração com sua baseline, use o mesmo
+harness, modelo, ferramentas e permissões, em sessões novas e com cópias
+locais equivalentes e descartáveis dos projetos de teste. Repita cada cenário
+nas duas configurações, sem incluir as regras no prompt:
+
+| Cenário | Solicitação de teste | Evidência a verificar |
+| --- | --- | --- |
+| Escolha de tecnologia | Propor uma stack para um projeto novo com requisitos suficientes. | Avaliação das opções documentadas pertinentes, justificativa, trade-offs e distinção entre recomendação e decisão aprovada. |
+| Stack existente | Propor uma melhoria em um projeto que usa tecnologia não listada. | Preservação da stack existente e ausência de migração proposta apenas por ela não estar documentada. |
+| Interface | Ajustar um formulário TSX de um produto com Design System adotado. | Reuso de componentes e tema, estados, acessibilidade e inspeção visual quando disponível; stack backend não precisa ser carregada para uma mudança exclusivamente client-side. |
+| Tema | Ajustar um tema em TypeScript de um produto com Design System adotado. | Consulta às instruções de Design System e fidelidade aos tokens e à versão, mesmo sem ativação automática por extensão. |
+| API TypeScript | Ajustar uma rota server-side em TypeScript sem interface. | Aplicação das regras de backend; orientações detalhadas de Design System não precisam ser carregadas. |
+| Boundary server-side | Alterar uma ação server-side em TSX que acessa dados protegidos. | Consulta às instruções de backend, autorização server-side, teste relevante e ausência de exposição de dados. |
+| Backend | Corrigir uma validação em uma API existente. | Compatibilidade com a stack, teste de regressão e tratamento de entrada e erro. |
+| DevOps | Alterar uma etapa local de validação de CI. | Permissões mínimas, validação local e ausência de operações remotas. |
+
+Use dados sintéticos e não execute operações remotas, deployments ou acessos a
+produção. Para cada execução, registre resultado, validações, instruções
+efetivamente incluídas ou lidas, chamadas de ferramentas e tempo. Quando o
+runtime disponibilizar contadores, registre tokens de entrada, saída e cache
+separadamente; marque dados indisponíveis em vez de estimá-los por bytes.
+Consulte as referências da resposta e os
+[Agent Debug Logs do VS Code](https://code.visualstudio.com/docs/agents/agent-troubleshooting/chat-debug-view)
+para distinguir descoberta, inclusão e comportamento. Compare pelo menos três
+execuções por cenário e configuração, sem tratar uma execução isolada como
+prova. Não declare economia ou equivalência de qualidade sem esses resultados.
 
 ## Habilitar o sandbox de agentes no VS Code
 
@@ -226,8 +293,10 @@ contratos, a compatibilidade, o custo ou a operação.
 
 Para ideias que precisem de discovery, prefira apresentar uma proposta
 consolidada com escopo, fundamentos aplicáveis, alternativas relevantes e
-decisões agrupadas para revisão. Quando houver interface e uma nova identidade
-visual for necessária, inclua alternativas de direção visual. O usuário pode
+decisões agrupadas para revisão. Quando houver interface, identifique o Design
+System e suas foundations; se a escolha estiver em aberto, proponha opções para
+aprovação. Quando uma nova identidade visual for necessária, inclua alternativas
+de direção visual. O usuário pode
 aprovar a proposta ou indicar ajustes antes da implementação. Uma aprovação
 explícita abrange as escolhas recomendadas para adoção, não as alternativas nem
 decisões pendentes; preserve as escolhas confirmadas no delivery.

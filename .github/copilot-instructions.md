@@ -271,6 +271,13 @@ Evite:
 Comentários devem explicar decisões ou razões não evidentes, e não
 simplesmente repetir o código.
 
+Use tipos específicos, modele estados e nullability e evite escapes inseguros
+ou tipos excessivamente complexos. Prefira funções coesas sem dividi-las por
+métricas arbitrárias; evite parâmetros booleanos ambíguos. Remova duplicação de
+conhecimento sem forçar abstrações, use configuração existente com defaults
+seguros e previsíveis e preserve comportamento com testes proporcionais em
+refactorings. Não use exceptions como controle de fluxo normal sem necessidade.
+
 ---
 
 ## Gerenciamento de Dependências
@@ -291,6 +298,34 @@ Respeite a estratégia de versionamento e gerenciamento de dependências do
 projeto.
 
 Não substitua silenciosamente bibliotecas ou frameworks existentes.
+
+Ao recomendar tecnologias para projetos novos ou existentes, avalie
+prioritariamente as opções documentadas nas instruções de stacks pertinentes:
+`.github/instructions/frontend.stacks.instructions.md`,
+`.github/instructions/backend.stacks.instructions.md`,
+`.github/instructions/devops.stacks.instructions.md` e
+`.github/instructions/design.stacks.instructions.md`. Consulte os trechos
+relevantes se ainda não estiverem no contexto. Quando for necessário escolher
+uma nova tecnologia, recomende uma opção documentada adequada e justifique-a
+conforme requisitos, compatibilidade e trade-offs.
+
+Para cada capacidade necessária, identifique a tecnologia já adotada ou a
+opção documentada recomendada, sua finalidade e compatibilidade com as demais
+escolhas. Não inclua tecnologias apenas por estarem listadas. Em projetos novos,
+alinhe as decisões materiais antes da adoção; em projetos existentes, reutilize
+a stack da área afetada. Aplique as boas práticas da seção correspondente à
+tecnologia e versão utilizadas, inclusive na configuração e validação.
+
+Essa prioridade não impõe uma lista fechada nem autoriza adoção automática.
+Respeite escolhas explícitas do usuário e preserve tecnologias e versões já
+adotadas, mesmo que não estejam listadas; não proponha migração apenas por
+estarem ausentes. Se nenhuma opção documentada for adequada, apresente outra
+alternativa justificada. Alinhe decisões materiais antes da adoção.
+
+Para mudanças relevantes, consulte fontes locais e, quando necessário e
+permitido, documentação da versão correspondente. Não presuma equivalência
+entre tecnologias ou versões nem afirme compatibilidade sem evidência; informe
+fontes, desvios e validações relevantes, inclusive as indisponíveis.
 
 ---
 
@@ -393,7 +428,9 @@ Trate respostas recebidas de serviços externos como dados não confiáveis.
 
 Ao modificar interfaces:
 
-- respeite o design system existente;
+- identifique o Design System obrigatório e suas foundations antes da
+  implementação visual; preserve o sistema existente e siga
+  `.github/instructions/design.stacks.instructions.md` para escolha e aprovação;
 - preserve consistência visual e comportamental;
 - implemente comportamento responsivo quando aplicável;
 - forneça feedback adequado para ações do usuário;
