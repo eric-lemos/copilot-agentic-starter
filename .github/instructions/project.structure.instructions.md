@@ -6,8 +6,8 @@ applyTo: "**"
 # Instruções de Estrutura de Projeto
 
 Organize arquivos de forma previsível e compatível com a stack, o escopo e as
-convenções do projeto. Esta estrutura-base é adaptável, não uma árvore
-obrigatória para todas as tecnologias.
+convenções do projeto. Para projetos novos, use a estrutura-base abaixo sem
+impor sua organização interna a frameworks que exijam outros caminhos.
 
 ## Projetos existentes
 
@@ -21,18 +21,42 @@ obrigatória para todas as tecnologias.
 
 ## Projetos novos
 
-- Crie todo novo projeto solicitado dentro de `src/` na raiz do workspace,
-  sem exigir uma pasta com o nome do projeto. Prefira `src/frontend/` para
-  aplicações de interface e `src/backend/` para aplicações server-side, conforme
-  a responsabilidade, não apenas a linguagem. Em projetos fullstack, use ambos
-  somente quando houver aplicações distintas; preserve a unidade de frameworks
-  integrados em vez de separá-los artificialmente. Outros nomes são permitidos
-  quando o escopo ou as convenções os justificarem.
-- Esses caminhos são relativos ao workspace, não à raiz do sistema operacional.
-  Coloque manifests, configuração, código, testes e assets na raiz da aplicação
-  correspondente. Inspecione diretórios existentes antes de criar aplicações
-  adicionais; diferencie-as por nomes claros quando necessário, sem sobrescrever
-  ou misturar projetos independentes.
+- Crie o projeto em `project/` na raiz do workspace. Essa é a raiz da entrega:
+  seu conteúdo deve poder ser transferido para a raiz de um repositório próprio,
+  sem depender da configuração agentic deste workspace.
+- Use `project/apps/frontend/` e `project/apps/backend/` como caminhos padrão
+  das aplicações. Mantenha ambos os diretórios mesmo quando apenas uma aplicação
+  estiver no escopo. Para a aplicação não solicitada, crie somente um marcador
+  como `.gitkeep`; não invente código, stack, Dockerfile ou serviço executável.
+  Preserve a unidade de frameworks integrados em vez de separá-los artificialmente.
+- Mantenha em `project/` os diretórios `.github/workflows/`, `apps/`,
+  `infra/docker/`, `infra/k8s/`, `infra/terraform/` e `scripts/`, além de
+  `.gitignore` e `README.md`. Use marcadores para diretórios que precisem ser
+  preservados no Git sem conteúdo. `packages/` é opcional e deve conter apenas
+  código ou configuração compartilhados com consumidores reais. A estrutura
+  não implica adotar Kubernetes, Terraform, cloud ou serviços não solicitados.
+- Coloque manifests, configuração, código, testes e assets de cada aplicação
+  real em sua raiz. Cada aplicação deve ter seu próprio manifest ou arquivo de
+  dependências conforme sua stack; preserve workspaces compartilhados quando
+  forem apropriados. Inspecione diretórios existentes antes de criar aplicações
+  adicionais, sem sobrescrever ou misturar projetos independentes.
+- Cada aplicação implementada deve ter seu próprio Dockerfile e exemplo de
+  configuração de ambiente. Mantenha também `.env.example` e um arquivo
+  `docker-compose.yml` na raiz de `project/`. Não inclua secrets reais nos
+  exemplos; ignore arquivos de ambiente reais e documente apenas as variáveis
+  necessárias. Uma aplicação ausente permanece somente com seu marcador.
+- Configure o Compose para iniciar com `docker compose up` as aplicações e
+  dependências locais que existirem no escopo, sem inventar backend, banco de
+  dados ou outros serviços. Se não houver serviço executável ou não for possível
+  atender a esse comando, explique a limitação e alinhe uma exceção com o
+  usuário; não apresente uma configuração não funcional como pronta.
+- Os workflows da entrega ficam em `project/.github/workflows/` e devem usar
+  caminhos relativos à futura raiz do repositório do projeto. Neste workspace,
+  o GitHub Actions reconhece os workflows em `.github/workflows/` na raiz do
+  repositório atual, não os aninhados em `project/`. Os workflows da entrega
+  passam a ser reconhecidos quando o conteúdo de `project/` for transferido
+  para a raiz de um repositório Git. Não sobrescreva a configuração agentic ou
+  os workflows deste repositório.
 - Execute scaffolding, instalação e comandos do projeto na raiz correspondente.
   Preserve a estrutura interna exigida pela tecnologia, inclusive um `src/`
   interno quando apropriado. Não confunda o diretório de projetos do workspace
@@ -40,8 +64,8 @@ obrigatória para todas as tecnologias.
 - Identifique requisitos, stack, ferramentas e convenções do framework antes
   de definir nomes ou diretórios. Respeite caminhos exigidos pela ferramenta.
 - Organize, conforme necessário, código, testes, documentação e configuração.
-  Prefira uma raiz clara, com manifests e pontos de entrada nos locais esperados
-  pela stack; não crie diretórios ou camadas vazios por antecipação.
+  Prefira manifests e pontos de entrada nos locais esperados pela stack; não
+  crie camadas ou serviços fictícios apenas para preencher a estrutura.
 - Na ausência de uma convenção mais apropriada, considere `src/` para código,
   `tests/` para testes e `README.md` para orientações do projeto. Adapte ou
   dispense esses nomes quando a stack ou o escopo indicar outra organização,
@@ -55,8 +79,8 @@ obrigatória para todas as tecnologias.
   coesão e localização do código. Mantenha juntos os arquivos relacionados,
   sem misturar responsabilidades que exijam boundaries distintos.
 - Use organização por camadas ou outros padrões quando forem a convenção do
-  projeto ou resolverem uma necessidade concreta. Não imponha arquitetura,
-  monorepo, packages compartilhados ou abstrações sem justificativa.
+  projeto ou resolverem uma necessidade concreta. A estrutura `apps/` não
+  exige camadas internas, packages compartilhados ou abstrações sem justificativa.
 - Mantenha arquivos compartilhados em locais com responsabilidade clara; não
   crie diretórios genéricos apenas para acomodar código sem ownership definido.
 - Coloque configuração, arquivos gerados, dados de teste e documentação

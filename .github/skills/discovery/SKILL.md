@@ -12,7 +12,7 @@ ausente, solicite a ideia ao usuário. Siga
 [Product Discovery](../agentic-software-delivery/references/product-discovery.md),
 as regras globais e o modelo de orquestração do workspace.
 Se o usuário solicitar a continuação de um discovery existente, leia o
-documento indicado, ou `DISCOVERY.md` na raiz quando não houver indicação,
+documento indicado, ou `ROADMAP.md` na raiz quando não houver indicação,
 e retome a revisão sem criar uma proposta independente. Se ele não puder ser
 lido ou for inválido, informe o problema.
 
@@ -41,7 +41,7 @@ lido ou for inválido, informe o problema.
    explícito. Ao continuar um documento anterior, preserve sua versão, salvo
    se o usuário solicitar migração. Preserve recomendações, alternativas,
    critérios de aceite e pendências relevantes.
-4. Salve o rascunho em `DISCOVERY.md` na raiz do workspace, ou no
+4. Salve o rascunho em `ROADMAP.md` na raiz do workspace, ou no
    caminho de arquivo explicitamente solicitado pelo usuário. O documento deve
    conter um único bloco cercado `json` com o contrato completo e pode conter
    explicações em Markdown consistentes com esse bloco. O JSON é a fonte de

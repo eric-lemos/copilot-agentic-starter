@@ -127,16 +127,24 @@ compatibilidade nem substituir testes reais.
 
 As orientações em
 [project.structure.instructions.md](.github/instructions/project.structure.instructions.md)
-definem uma estrutura-base adaptável para projetos novos e preservam as
-convenções de projetos existentes. Novos projetos solicitados devem ser criados
-sob `src/`, relativo à raiz do workspace, preferencialmente em `src/frontend/`
-ou `src/backend/` conforme a responsabilidade. O nome do projeto não é obrigatório;
-preserve a unidade de frameworks fullstack integrados e diferencie aplicações
-independentes quando necessário. Cada aplicação mantém sua estrutura interna e
-manifests; projetos existentes não são movidos automaticamente.
-Incluem referências por tecnologia e regras
-para separar assets processados, arquivos públicos, recursos de runtime e
-outputs gerados, sem exigir uma árvore única ou diretórios vazios.
+definem a estrutura-base para projetos novos e preservam as convenções de
+projetos existentes. `project/`, relativo à raiz do workspace, é a raiz da
+entrega, cujo conteúdo pode ser transferido para um repositório próprio.
+As aplicações ficam em `project/apps/frontend/` e `project/apps/backend/`;
+uma aplicação fora do escopo mantém apenas um marcador. Frameworks integrados
+preservam sua unidade e organização interna.
+
+A estrutura também prevê `project/.github/workflows/`, `project/infra/` e
+`project/scripts/`, com `packages/` opcional. Aplicações implementadas possuem
+manifests, Dockerfile e exemplos de ambiente próprios; a raiz inclui
+`docker-compose.yml` e `.env.example`. O Compose contempla somente serviços
+necessários. Infraestrutura e pastas reservadas não implicam adoção automática
+de cloud ou serviços. Projetos existentes não são movidos automaticamente.
+
+Os workflows em `project/.github/workflows/` pertencem ao projeto entregue;
+eles só são reconhecidos pelo GitHub Actions quando o conteúdo de `project/`
+estiver na raiz de um repositório. Os workflows deste starter permanecem em
+`.github/workflows/` na raiz do repositório atual.
 
 Para evitar divergência, use `.github/copilot-instructions.md` como fonte das
 regras transversais; `.github/AGENTS.md` para orquestração, ownership e
@@ -343,7 +351,7 @@ natural:
 
 A skill apresenta uma proposta consolidada, incluindo requisitos, critérios de
 aceite, stack e demais escolhas aplicáveis, e salva um rascunho em
-`DISCOVERY.md` na raiz. Você pode aprovar a proposta inteira ou solicitar
+`ROADMAP.md` na raiz. Você pode aprovar a proposta inteira ou solicitar
 ajustes; nesse caso, o agente a refina. Após aceite explícito e resolução das
 decisões bloqueantes, o agente atualiza o mesmo arquivo para aprovado. O JSON
 dentro do Markdown é montado pelo agente; você não precisa escrevê-lo. Para usar
@@ -351,7 +359,7 @@ outro nome ou local, informe o caminho ao solicitar o discovery. Se o arquivo
 já existir, o agente deve pedir confirmação antes de substituí-lo.
 
 Para retomar em outra conversa, invoque `/discovery` solicitando a revisão do
-rascunho e informe o caminho se ele não for `DISCOVERY.md`. O agente deve ler
+rascunho e informe o caminho se ele não for `ROADMAP.md`. O agente deve ler
 o documento existente e preservar seu conteúdo ao aplicar os ajustes.
 
 Para cada arquivo de `.github/instructions/`, o discovery registra se ele é
@@ -359,7 +367,7 @@ aplicável, quais seções foram consultadas, a justificativa e os requisitos ou
 decisões relacionados. A verificação local pode ser executada manualmente:
 
 ```powershell
-python scripts\validate_discovery.py DISCOVERY.md
+python scripts\validate_discovery.py ROADMAP.md
 ```
 
 Ela verifica a estrutura dos registros e as seções existentes, não comprova a
@@ -377,6 +385,8 @@ Caminhos relativos são interpretados a partir da raiz do workspace. O arquivo
 alternativo deve seguir o mesmo contrato; se ele não existir, for inválido ou
 não estiver aprovado, delivery deve parar e explicar o problema. Um rascunho
 precisa ser revisado e aprovado antes de iniciar a implementação.
+Arquivos existentes chamados `DISCOVERY.md` não são renomeados nem escolhidos
+automaticamente; para usá-los, informe `/delivery DISCOVERY.md`.
 Veja o [contrato e os exemplos JSON](.github/skills/agentic-software-delivery/references/discovery-contract.md).
 Os agentes usam esse formato ao compartilhar requisitos de discovery e
 mantêm a comunicação com você em pt-BR.

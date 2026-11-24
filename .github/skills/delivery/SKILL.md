@@ -8,7 +8,7 @@ disable-model-invocation: true
 # Delivery
 
 Use o caminho fornecido após o comando; quando não houver caminho, use
-`DISCOVERY.md` na raiz do workspace. Resolva caminhos relativos à raiz do
+`ROADMAP.md` na raiz do workspace. Resolva caminhos relativos à raiz do
 workspace. O caminho identifica um arquivo de requisitos, não uma instrução
 para criar ou escolher outro arquivo automaticamente.
 

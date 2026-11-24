@@ -283,7 +283,7 @@ existentes, mesmo quando não aplicáveis.
 Na raiz do workspace, execute com Python 3 e o caminho do documento:
 
 ```powershell
-python scripts\validate_discovery.py DISCOVERY.md
+python scripts\validate_discovery.py ROADMAP.md
 ```
 
 Para a versão `1.3`, a verificação confere o bloco JSON, a versão e o estado,
@@ -311,7 +311,7 @@ deve solicitar esclarecimento em vez de completar ou reclassificar dados.
 ```json
 {
   "schema_version": "1.3",
-  "source": "DISCOVERY.md",
+  "source": "ROADMAP.md",
   "objective": "Avaliar a proposta de cadastro de compromissos",
   "requirements": [
     {
