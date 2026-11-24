@@ -398,6 +398,26 @@ depende do harness e das configurações da sessão; verifique o menu `/` em uma
 nova conversa. Consulte a
 [documentação de Agent Skills do VS Code](https://code.visualstudio.com/docs/agent-customization/agent-skills).
 
+#### Refatorar uma aplicação existente
+
+Para analisar uma aplicação antes de refatorá-la, invoque:
+
+```text
+/refactor project Melhorar a organização sem alterar o comportamento.
+```
+
+O caminho é opcional quando houver uma aplicação existente em `project/`; caso
+contrário, o agente solicita o caminho dentro do workspace. O agente analisa a
+aplicação, avalia as instruções e recomenda melhorias, considerando a
+estrutura de entrega em `project/`. Não modifica o código nessa etapa.
+
+A proposta é registrada em `ROADMAP.md` como refatoração, com origem, destino,
+comportamentos a preservar e estratégia de validação. Você pode aprová-la ou
+solicitar refinamentos. Após aprovação, `/delivery` aplica apenas as mudanças
+aprovadas, usando testes existentes ou testes de caracterização quando
+necessário. A reorganização da aplicação e mudanças de stack, contratos ou
+dados precisam constar explicitamente da proposta aprovada.
+
 ### Delivery
 
 Quando os requisitos estiverem suficientemente claros, inspecione o contexto

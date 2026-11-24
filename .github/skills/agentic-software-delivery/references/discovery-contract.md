@@ -1,6 +1,6 @@
 # Contrato de discovery e handoff
 
-Este contrato é usado pelas skills `/discovery` e `/delivery` e
+Este contrato é usado pelas skills `/discovery`, `/refactor` e `/delivery` e
 pelos agentes ao compartilharem requisitos provenientes de discovery. As
 chaves e os valores enumerados são identificadores técnicos em inglês; os
 textos destinados às pessoas são escritos em pt-BR. O contrato não é um
@@ -12,7 +12,8 @@ O documento Markdown contém exatamente um bloco cercado com a linguagem `json`.
 Esse bloco é a fonte de verdade; textos fora dele não podem contradizê-lo.
 Todos os campos abaixo são obrigatórios. Arrays sem itens aplicáveis usam `[]`.
 
-- `schema_version`: string `"1.3"` para novos documentos.
+- `schema_version`: string `"1.3"` para novos documentos de discovery ou
+  `"1.4"` para novos documentos de refatoração.
 - `status`: string `"proposed"` para propostas não aprovadas ou `"approved"`
   somente após aprovação explícita do usuário.
 - `project`: objeto com `name` e `goal`, strings não vazias.
@@ -56,6 +57,27 @@ Todos os campos abaixo são obrigatórios. Arrays sem itens aplicáveis usam `[]
     Pode ser vazio quando a instrução não produzir uma decisão ou requisito
     específico; para `not_applicable`, deve ser vazio.
 
+Na versão `1.4`, além dos campos acima:
+
+- `work_type`: string obrigatória `"refactor"`.
+- `refactoring`: objeto obrigatório com:
+  - `source_path`: caminho da aplicação existente, relativo à raiz do
+    workspace e usando `/`; `.` representa a própria raiz.
+  - `target_path`: raiz de entrega proposta, no mesmo formato; normalmente
+    `project`. O escopo deve detalhar eventuais movimentos aprovados.
+  - `current_state`: array não vazio de strings com o estado observado e
+    evidências relevantes, identificando fontes ou limitações.
+  - `preserve`: array não vazio de strings com comportamentos, contratos ou
+    dados a preservar.
+  - `validation_strategy`: array não vazio de strings com a estratégia de
+    testes e validação proporcional ao risco.
+
+Esses caminhos devem permanecer dentro do workspace, inclusive após resolução
+de links simbólicos; não use caminhos absolutos, `..` ou `\`. A verificação
+estrutural não confirma a existência da aplicação nem que o código analisado
+permaneceu inalterado; `/delivery` deve confirmar esses pontos antes de agir.
+A versão `1.3` não deve identificar uma refatoração por `work_type`; use `1.4`.
+
 IDs são únicos dentro de cada array e mantidos nos handoffs. Inclua dados,
 integrações, segurança, regras de negócio, requisitos não funcionais e decisões
 de experiência ou stack quando aplicáveis, representando-os nos campos acima.
@@ -68,7 +90,7 @@ requisitos `proposed` aceitos para `confirmed` e as decisões `recommended`
 aceitas para `confirmed`, preservando IDs, justificativas e alternativas.
 Não converta `derived`, `recommended` em `requirements`, `assumption`,
 alternativas ou decisões pendentes em escolhas confirmadas. Uma baseline
-`1.2` ou `1.3` aprovada não pode conter requisitos `proposed` ou decisões
+`1.2`, `1.3` ou `1.4` aprovada não pode conter requisitos `proposed` ou decisões
 `recommended`. Se o aceite for parcial ou ambíguo, esclareça-o antes de
 registrar a aprovação.
 
@@ -278,6 +300,25 @@ existentes, mesmo quando não aplicáveis.
 }
 ```
 
+### Exemplo de contexto de refatoração
+
+Este trecho complementa os demais campos obrigatórios do contrato e os
+`instruction_reviews`; não é um documento completo.
+
+```json
+{
+  "schema_version": "1.4",
+  "work_type": "refactor",
+  "refactoring": {
+    "source_path": "project",
+    "target_path": "project",
+    "current_state": ["A API e seus testes foram analisados em project/apps/backend."],
+    "preserve": ["Manter os contratos e comportamentos existentes."],
+    "validation_strategy": ["Executar os testes existentes e testes de regressão."]
+  }
+}
+```
+
 ### Verificação local
 
 Na raiz do workspace, execute com Python 3 e o caminho do documento:
@@ -286,13 +327,17 @@ Na raiz do workspace, execute com Python 3 e o caminho do documento:
 python scripts\validate_discovery.py ROADMAP.md
 ```
 
-Para a versão `1.3`, a verificação confere o bloco JSON, a versão e o estado,
+Para as versões `1.3` e `1.4`, a verificação confere o bloco JSON, a versão e o estado,
 a cobertura dos arquivos de instruções atuais, duplicidades, aplicabilidade,
 justificativas, existência dos títulos de seção e referências a IDs. Ela não
 valida os demais campos do contrato nem comprova que o agente leu as seções ou
 que seu julgamento está correto; essas verificações continuam sendo
 responsabilidade do agente e da revisão humana. Novos arquivos ou seções
 renomeadas podem exigir atualização da avaliação.
+
+Na versão `1.4`, também verifica `work_type`, os campos obrigatórios de
+`refactoring` e se os caminhos permanecem no workspace. Não verifica que os
+arquivos descritos existem nem seu comportamento.
 
 O comando retorna erro em caso de falha; para versões `1.0`, `1.1` e `1.2`,
 retorna aviso sem bloquear, pois elas não exigem avaliações estruturadas.

@@ -4,7 +4,7 @@ import argparse
 import json
 import re
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 
 JSON_BLOCK = re.compile(r"^```json[ \t]*\r?\n(.*?)^```[ \t]*\r?$", re.MULTILINE | re.DOTALL)
@@ -25,6 +25,39 @@ def _reject_constant(value: str) -> object:
     raise ValueError(f"Invalid JSON constant: {value}")
 
 
+def _validate_refactoring(document: dict[str, object], root: Path) -> list[str]:
+    errors: list[str] = []
+    if document.get("work_type") != "refactor":
+        errors.append("'work_type' must be 'refactor' for schema version 1.4.")
+    details = document.get("refactoring")
+    if not isinstance(details, dict):
+        return errors + ["'refactoring' must be an object."]
+
+    for field in ("source_path", "target_path"):
+        value = details.get(field)
+        if not isinstance(value, str) or not value.strip() or "\\" in value or "\0" in value:
+            errors.append(f"'refactoring.{field}' must be a workspace-relative path using '/'.")
+            continue
+        path = PurePosixPath(value)
+        if path.is_absolute() or PureWindowsPath(value).drive or ".." in path.parts:
+            errors.append(f"'refactoring.{field}' must be a workspace-relative path using '/'.")
+            continue
+        try:
+            (root / path).resolve().relative_to(root.resolve())
+        except ValueError:
+            errors.append(f"'refactoring.{field}' resolves outside the workspace.")
+        except (OSError, RuntimeError) as error:
+            errors.append(f"'refactoring.{field}' cannot be resolved: {error}")
+
+    for field in ("current_state", "preserve", "validation_strategy"):
+        value = details.get(field)
+        if not isinstance(value, list) or not value or any(
+            not isinstance(item, str) or not item.strip() for item in value
+        ):
+            errors.append(f"'refactoring.{field}' must be a non-empty array of non-empty strings.")
+    return errors
+
+
 def validate_instruction_reviews(markdown: str, root: Path) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -41,8 +74,12 @@ def validate_instruction_reviews(markdown: str, root: Path) -> tuple[list[str], 
     version = document.get("schema_version")
     if isinstance(version, str) and version in LEGACY_VERSIONS:
         return errors, ["Legacy discovery: instruction review coverage is not verifiable."]
-    if version != "1.3":
+    if version not in ("1.3", "1.4"):
         return [f"Unsupported schema version: {version!r}"], warnings
+    if version == "1.4":
+        errors.extend(_validate_refactoring(document, root))
+    elif document.get("work_type") == "refactor":
+        errors.append("Refactoring requires schema version 1.4.")
 
     status = document.get("status")
     if status not in ("proposed", "approved"):

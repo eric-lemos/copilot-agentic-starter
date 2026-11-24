@@ -14,15 +14,16 @@ para criar ou escolher outro arquivo automaticamente.
 
 1. Leia o arquivo indicado antes de planejar ou implementar. Se ele não existir,
    não puder ser lido ou não for um arquivo, interrompa, informe o caminho e a
-   causa, e oriente o usuário a executar `/discovery` ou informar outro caminho.
+   causa, e oriente o usuário a executar `/discovery`, `/refactor` para uma
+   aplicação existente, ou informar outro caminho.
    Não faça fallback para outro arquivo nem crie uma baseline automaticamente.
 2. Extraia o único bloco cercado `json` e valide a sintaxe, a versão e os campos
    obrigatórios conforme o
    [contrato de discovery](../agentic-software-delivery/references/discovery-contract.md).
-   Aceite somente baselines aprovadas das versões `1.0`, `1.1`, `1.2` ou `1.3`,
+   Aceite somente baselines aprovadas das versões `1.0` a `1.4`,
    conforme o contrato. Se o arquivo for uma proposta ainda não aprovada,
-   interrompa e oriente o usuário a revisar, refinar e aprovar no discovery,
-   atualizando o arquivo antes de executar `/delivery` novamente. Se houver
+   interrompa e oriente o usuário a revisar, refinar e aprovar no fluxo que
+   gerou o documento, atualizando-o antes de executar `/delivery` novamente. Se houver
    ausência, duplicidade, JSON inválido, incompatibilidade, questão bloqueante
    ou conflito material, interrompa e explique o problema; peça correção ou
    esclarecimento. Não inicie implementação.
@@ -38,8 +39,17 @@ para criar ou escolher outro arquivo automaticamente.
    alternativas, itens `recommended` ou `assumption` como requisitos. Preserve
    decisões confirmadas e esclareça decisões bloqueantes antes de implementar.
 5. Siga [Feature Delivery](../agentic-software-delivery/references/feature-delivery.md)
-   e o modelo de orquestração do workspace. Use o contrato de handoff JSON
-   quando compartilhar requisitos de discovery com outros agentes.
+   e o modelo de orquestração do workspace. Para versão `1.4` com
+   `work_type: "refactor"`, siga também
+   [Code Refactoring](../agentic-software-delivery/references/code-refactoring.md):
+   confirme que a origem registrada existe e corresponde à aplicação analisada,
+   verifique mudanças relevantes desde a proposta, preserve os comportamentos
+   e contratos registrados e use testes existentes ou characterization tests.
+   Se a origem estiver ausente, o contexto divergir materialmente ou o destino
+   não for seguro, interrompa e peça esclarecimento. Não trate o trabalho como
+   projeto novo, nem mova arquivos ou altere stack, dados ou contratos além do
+   escopo explicitamente aprovado. Use o contrato de handoff JSON quando
+   compartilhar requisitos de discovery com outros agentes.
 6. Se surgir uma ambiguidade material, suspenda a parte afetada e esclareça-a
    com o usuário antes de prosseguir. Informe alterações, decisões, validações
    e limitações.

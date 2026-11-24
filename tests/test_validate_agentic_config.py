@@ -190,6 +190,48 @@ class ValidateDiscoveryInstructionReviewsTests(unittest.TestCase):
     def test_accepts_complete_reviews(self) -> None:
         self.assertEqual(self._validate(self.document), ([], []))
 
+    def test_accepts_refactoring_metadata(self) -> None:
+        self.document.update(
+            {
+                "schema_version": "1.4",
+                "work_type": "refactor",
+                "refactoring": {
+                    "source_path": "project",
+                    "target_path": "project",
+                    "current_state": ["Existing API and tests were inspected."],
+                    "preserve": ["Existing API behavior."],
+                    "validation_strategy": ["Run existing API tests."],
+                },
+            }
+        )
+        self.assertEqual(self._validate(self.document), ([], []))
+
+    def test_rejects_missing_or_unsafe_refactoring_metadata(self) -> None:
+        self.document.update({"schema_version": "1.4", "work_type": "refactor"})
+        errors, _ = self._validate(self.document)
+        self.assertTrue(any("refactoring" in error for error in errors))
+
+        self.document["refactoring"] = {
+            "source_path": "../outside",
+            "target_path": "C:/outside",
+            "current_state": [],
+            "preserve": ["Existing API behavior."],
+            "validation_strategy": ["Run existing tests."],
+        }
+        errors, _ = self._validate(self.document)
+        for field in ("source_path", "target_path", "current_state"):
+            self.assertTrue(any(field in error for error in errors))
+
+    def test_rejects_unknown_refactoring_work_type(self) -> None:
+        self.document.update({"schema_version": "1.4", "work_type": "unknown"})
+        errors, _ = self._validate(self.document)
+        self.assertTrue(any("work_type" in error for error in errors))
+
+    def test_rejects_refactoring_marked_as_discovery_version(self) -> None:
+        self.document["work_type"] = "refactor"
+        errors, _ = self._validate(self.document)
+        self.assertTrue(any("requires schema version 1.4" in error for error in errors))
+
     def test_detects_new_instruction_after_review(self) -> None:
         (self.root / ".github" / "instructions" / "new.instructions.md").write_text(
             "# New\n", encoding="utf-8"
@@ -260,6 +302,25 @@ class ValidateDiscoveryInstructionReviewsTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("structurally valid", result.stdout)
+
+    def test_published_refactoring_example_passes_cli_validation(self) -> None:
+        repository = Path(__file__).resolve().parents[1]
+        contract = repository / ".github" / "skills" / "agentic-software-delivery" / "references" / "discovery-contract.md"
+        blocks = re.findall(r"```json\n(.*?)\n```", contract.read_text(encoding="utf-8"), re.DOTALL)
+        document = json.loads(blocks[0])
+        refactoring = next(
+            item for item in map(json.loads, blocks) if item.get("work_type") == "refactor"
+        )
+        document.update(refactoring)
+        path = self.root / "example.md"
+        path.write_text(f"```json\n{json.dumps(document)}\n```\n", encoding="utf-8")
+        result = subprocess.run(
+            [sys.executable, str(repository / "scripts" / "validate_discovery.py"), str(path)],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_cli_warns_for_legacy_and_fails_for_incomplete_reviews(self) -> None:
         repository = Path(__file__).resolve().parents[1]
