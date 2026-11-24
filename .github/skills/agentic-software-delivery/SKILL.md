@@ -9,7 +9,7 @@ Aplicar o workflow correspondente à intenção do usuário. Comunicar-se em pt-
 
 ## Regras comuns
 
-1. Ler `.github/copilot-instructions.md`, `.github/AGENTS.md` e `AGENTS.md` na raiz quando existirem.
+1. Ler `.github/copilot-instructions.md`, `.github/AGENTS.md` e `AGENTS.md` na raiz quando existirem. Para arquivos grandes, quando a leitura integral for necessária e a ferramenta oferecer `forceReadLargeFiles`, use essa opção; caso contrário, leia por trechos. Se não for possível acessar as instruções necessárias, informe a limitação.
 2. Consultar os Agents e Instructions relevantes quando necessário, respeitando solicitações explícitas para não utilizá-los.
 3. Inspecionar o workspace antes de presumir stack, arquitetura, contracts ou comandos.
 4. Manter alterações e execução locais. Permitir pesquisa pública anônima e somente para leitura conforme `.github/copilot-instructions.md`; não usar conectores externos, produção ou credenciais reais.

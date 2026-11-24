@@ -42,7 +42,9 @@ recomendações, assumptions e decisões pendentes:
 3. **Fundamentos:** conforme aplicável, acessibilidade, idiomas, temas, segurança,
    dados, integrações, operação e outras necessidades não funcionais. Diferencie
    necessidades identificadas de sugestões e pontos ainda não definidos.
-4. **Direção visual:** quando houver interface, preserve a identidade existente.
+4. **Direção visual:** quando houver interface, preserve a identidade existente
+   e aborde o suporte a temas claro e escuro, apresentando uma recomendação ou
+   indicando a decisão pendente, sem presumir que ambos sejam necessários.
    Se uma nova direção for necessária, apresente alternativas e recomende uma,
    incluindo tipografia, cores, componentes e referências de Design System,
    conforme `.github/instructions/design.instructions.md`. Não imponha biblioteca.
